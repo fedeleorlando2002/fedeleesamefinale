@@ -1,0 +1,11 @@
+<p-sidebar [(visible)]="sidebarVisible">
+    <ng-template pTemplate="header">Header Content</ng-template>
+        <ng-template pTemplate="content">
+            <ul>
+                <li><a routerLink="/libri">Libri</a></li>
+                <li><a routerLink="/categorie">Categorie</a></li>
+                <li><a routerLink="/cliente">Clienti</a></li>
+            </ul>
+        </ng-template>
+        <ng-template pTemplate="footer" icon="pi pi-arrow-left">Logout</ng-template>
+</p-sidebar>
