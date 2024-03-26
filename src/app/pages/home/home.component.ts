@@ -1,6 +1,4 @@
 
-
-
 import { Component } from '@angular/core';
 
 @Component({
@@ -9,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  sidebarVisible: boolean = true; 
+  
 }

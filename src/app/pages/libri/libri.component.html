@@ -58,7 +58,7 @@
         <tr>
           <td class="table-col">{{ libro.titolo }}</td>
           <td class="table-col">{{ libro.autore }}</td>
-          <td class="table-col">{{ libro.prezzo | currency : "EUR" }}</td>
+          <td class="table-col">{{ libro.prezzo }}</td>
           <td class="table-col">{{ libro.categoria}}</td>
           <td class="table-col transp-bord">
             <div class="container">
@@ -154,12 +154,8 @@
           
         <div class="formgrid grid">
           <div class="field col">
-            <label htmlFor="prezzo">Prezzo</label>
-            <p-inputNumber
-              mode="currency"
-              inputId="currency-italy"
-              currency="EUR"
-              locale="it-IT"
+            <label htmlFor="prezzo">PREZZO</label>
+            <input
               id="prezzo"
               name="prezzo"
               #prezzo="ngModel"
@@ -211,53 +207,20 @@
           </div>
         </div>
   
-        <!-- <div class="formgrid grid">
-          <div class="field col">
-            <label htmlFor="descrizione">Descrizione</label>
-            <textarea
-              rows="5"
-              cols="30"
-              placeholder=""
-              [(ngModel)]="pacchettoInTheForm.id_pacchetto"
-              name="descrizione"
-              #id_pacchetto="ngModel"
-              pInputTextarea
-              autofocus
-              [ngClass]="{
-                'ng-invalid ng-dirty':
-                  (descrizione.dirty || descrizione.touched) && descrizione.errors
-              }"
-              class="p-inputtextarea p-inputtext p-component p-element"
-            ></textarea>
-            <div
-              *ngIf="
-                (descrizione.dirty || descrizione.touched) && descrizione.errors
-              "
-              class="alert alert-danger"
-            >
-              <p-message
-                severity="error"
-                text="La Descrizione è obbligatoria"
-                [@errorState]="descrizione?.errors?.['required'] ? 'visible' : 'hidden'"
-              ></p-message>
-            </div>
-          </div>
-        </div> -->
-  
         <!-- BUTTONS -->
         <div class="flex-parent jc-center">
           <button
             pButton
             type="submit"
             [label]="lblBtnSubmit"
-            (click)="SALVA()"
+            (click)="SALVA(libroInTheForm._id)"
             class="p-button-success mb-3 button-size"
           ></button>
           <button
             pButton
             type="button"
             label="Elimina"
-            (click)="ELIMINA()"
+            (click)="elimina()"
             class="p-button-danger mb-3 button-size"
             [disabled]="nascondiTastoElimina"
           ></button>

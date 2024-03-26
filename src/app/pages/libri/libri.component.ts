@@ -12,7 +12,7 @@ export class LibriComponent {
   libroInTheForm!: Libro;
   libri: Libro[] = [];
   lbl_header = "";
-  label = "Libri";
+  label = "libri";
   loading = true;
   lblBtnSubmit: string = "Salva";
   errorOccurred: boolean = false;
@@ -25,14 +25,14 @@ export class LibriComponent {
   
   }
 
-  // ngOnInit(): void {
-  //   this.libriService.get().subscribe((data) => {
-  //     this.libri = data;
-  //     this.loading = false;
-  //   });
-  // }
+  ngOnInit(): void {
+    this.libriService.get().subscribe((data) => {
+      this.libri = data;
+      this.loading = false;
+    });
+  }
 
-
+  
   Finestramodale() {
     this.lbl_header = "Inserisci un nuovo Pacchetto Salute";
     this.showDialog = true; //questo serve per aprire il p-dialog
@@ -51,25 +51,25 @@ export class LibriComponent {
     this.nascondiTastoElimina = false;
   }
 
-  SALVA() {
-    // if (_id && this.editMode) {
-    //   let pacchetto: Pacchetto = { ...this.pacchettoInTheForm };
-    //   this.pacchettiService.put(_id, pacchetto).subscribe((data: Pacchetto) => {
-    //     this.showDialog = false;
-    //   });
-    // } else {
-    //   this.pacchettiService.post(this.pacchettoInTheForm).subscribe(() => {
-    //     this.showDialog = false;
-    //   });
-    // }
+  SALVA(_id: string | undefined) {
+    if (_id && this.editMode) {
+      let libro: Libro = { ...this.libroInTheForm};
+      this.libriService.put(_id, libro).subscribe((data: Libro) => {
+        this.showDialog = false;
+      });
+    } else {
+      this.libriService.post(this.libroInTheForm).subscribe(() => {
+        this.showDialog = false;
+      });
+    }
 
-    // this.pacchettiService.get().subscribe((data) => {
-    //   this.pacchetti = data;
-    //   this.loading = false;
-    // });
+    this.libriService.get().subscribe((data) => {
+      this.libri = data;
+      this.loading = false;
+    });
   }
 
-  ELIMINA() {
+  elimina() {
   //   if (!_id) {
   //     _id = "";
   //   }

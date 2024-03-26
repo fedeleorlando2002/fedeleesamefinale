@@ -1,14 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { BaseService } from '../templates/base-service.template';
-
 @Injectable({
   providedIn: 'root'
 })
-export class LibriService extends BaseService{
+export class ClientiService {
 
-  constructor(http: HttpClient) { 
-    super(http, "libri", 'http://127.0.0.1:5000');
-  }
+  // constructor(http: HttpClient) { 
+    
+  // }
 }
-
