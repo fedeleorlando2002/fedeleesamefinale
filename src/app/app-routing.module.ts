@@ -11,9 +11,8 @@ const routes: Routes = [
   { path: '', component: SidebarComponent},
   { path: 'home', component: HomeComponent },
   { path: 'libri', component: LibriComponent },
-  { path: 'cliente', component: ClientiComponent},
-];
-
+  { path: 'clienti', component: ClientiComponent},
+]
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

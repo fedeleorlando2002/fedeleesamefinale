@@ -1,4 +1,5 @@
-<div class="card">
+<p>libri</p>
+<!-- <div class="card">
     <p-table
       class="table"
       [value]="libri"
@@ -50,7 +51,7 @@
           <th class="table-col" pSortableColumn="prezzo">
             PREZZO <p-sortIcon field="prezzo"></p-sortIcon>
           </th>
-          <!-- <th>Descrizione</th> -->
+       
           <th class="table-col">CATEGORIA</th>
         </tr>
       </ng-template>
@@ -79,9 +80,9 @@
         </tr>
       </ng-template>
     </p-table>
-  </div>
+  </div> -->
 
-  <p-dialog
+  <!-- <p-dialog
     [header]="lbl_header"
     [(visible)]="showDialog"
     [style]="{ width: '1000px' }"
@@ -207,7 +208,7 @@
           </div>
         </div>
   
-        <!-- BUTTONS -->
+       
         <div class="flex-parent jc-center">
           <button
             pButton
@@ -224,18 +225,18 @@
             class="p-button-danger mb-3 button-size"
             [disabled]="nascondiTastoElimina"
           ></button>
-          <!-- <button
+          <button
             pButton
             type="button"
             label="Annulla"
             class="p-button-secondary mb-3 button-size"
             (click)="cancel()"
-          ></button> -->
+          ></button>
           <div *ngIf="errorOccurred" [ngClass]="errorOccurred ? 'ng-errors' : ''">
             {{ message }}
           </div>
         </div>
       </form>
     </ng-template>
-  </p-dialog>
+  </p-dialog> -->
   

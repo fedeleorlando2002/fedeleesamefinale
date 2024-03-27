@@ -5,10 +5,11 @@ import { BaseService } from '../templates/base-service.template';
 @Injectable({
   providedIn: 'root'
 })
-export class LibriService extends BaseService{
+export class LibriService {
 
-  constructor(http: HttpClient) { 
-    super(http, "libri", 'http://127.0.0.1:5000');
-  }
+  // constructor(http: HttpClient) { 
+  //   super(http, "libri", 'http://127.0.0.1:5000');
+  // extends BaseService
+  // }
 }
 

@@ -1,7 +1,39 @@
-<p>sidebar works!</p>
 
-<p-sidebar [(visible)]="sidebarVisible">
-    <ng-template pTemplate="header">Progetto</ng-template>
+<p-sidebar [(visible)]="sidebarVisible" [showCloseIcon]="false" [blockScroll]="true" [dismissable]="false">
+    <ng-template pTemplate="content">
+      <p-menubar [model]="items"></p-menubar>
+    </ng-template>
+  </p-sidebar>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+<!-- <p-sidebar [model]="items"  [(visible)]="sidebarVisible">
+        <ng-template pTemplate="start">
+            <img src="../../shared/immagini/apulia.png" height="60"class="mr-2 img-mod"/>
+          </ng-template>
+</p-sidebar> -->
+
+
+<!-- <ng-template pTemplate="header">Progetto</ng-template>
         <ng-template pTemplate="content">
             <ul>
                 <li><a routerLink="/libri">Libri</a></li>
@@ -9,5 +41,4 @@
                 <li><a routerLink="/home">Home</a></li>
             </ul>
         </ng-template>
-        <ng-template pTemplate="footer" icon="pi pi-arrow-left">Logout</ng-template>
-</p-sidebar>
+        <ng-template pTemplate="footer" icon="pi pi-arrow-left">Logout</ng-template> -->
