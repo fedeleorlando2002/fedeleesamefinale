@@ -7,9 +7,5 @@ import { HttpClient } from "@angular/common/http";
 })
 export class LibriService {
 
-  // constructor(http: HttpClient) { 
-  //   super(http, "libri", 'http://127.0.0.1:5000');
-  // extends BaseService
-  // }
 }
 

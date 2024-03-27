@@ -6,7 +6,4 @@ import { HttpClient } from "@angular/common/http";
 })
 export class ClientiService {
 
-  // constructor(http: HttpClient) { 
-    
-  // }
 }

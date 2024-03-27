@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { SidebarService } from 'src/app/shared/service/sidebar.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -9,11 +8,8 @@ import { SidebarService } from 'src/app/shared/service/sidebar.service';
 export class SidebarComponent {
    sidebarVisible: boolean = true; 
 
-  constructor(private sidebarService: SidebarService) {}
-
   ngOnInit() {}
 
- 
   items = [
     {
       label: 'Home',
