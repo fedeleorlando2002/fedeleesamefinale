@@ -8,8 +8,7 @@ import { Component } from '@angular/core';
 export class SidebarComponent {
    sidebarVisible: boolean = true; 
 
-  ngOnInit() {}
-
+  
   items = [
     {
       label: 'Home',
