@@ -1,7 +1,7 @@
 <p>clienti works!</p>
 
 
-<!-- <div class="card">
+<div class="card">
     <p-table
       class="table"
       [value]="clienti"
@@ -37,36 +37,38 @@
   
       <ng-template pTemplate="header">
         <tr>
-          <th class="table-col" pSortableColumn="titolo">
-            TITOLO <p-sortIcon field="titolo"></p-sortIcon>
+          <th class="table-col" pSortableColumn="nome">
+            NOME<p-sortIcon field="nome"></p-sortIcon>
           </th>
   
           <th class="table-col" pSortableColumn="autore">
-            AUTORE
+            COGNOME
             <p-columnFilter
               type="text"
-              field="autore"
+              field="cognome"
               display="menu"
             ></p-columnFilter>
-            <p-sortIcon field="autore"></p-sortIcon>
+            <p-sortIcon field="cognome"></p-sortIcon>
           </th>
+          <th class="table-col">ETA</th>
           <th class="table-col" pSortableColumn="prezzo">
-            PREZZO <p-sortIcon field="prezzo"></p-sortIcon>
+            EMAIL<p-sortIcon field="prezzo"></p-sortIcon>
           </th>
           
-          <th class="table-col">CATEGORIA</th>
+          <th class="table-col">TELEFONO</th>
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-libro>
+      <ng-template pTemplate="body" let-cliente>
         <tr>
-          <td class="table-col">{{ libro.titolo }}</td>
-          <td class="table-col">{{ libro.autore }}</td>
-          <td class="table-col">{{ libro.prezzo | currency : "EUR" }}</td>
-          <td class="table-col">{{ libro.categoria}}</td>
+          <td class="table-col">{{ cliente.nome }}</td>
+          <td class="table-col">{{ cliente.cognome}}</td>
+          <td class="table-col">{{ cliente.eta  }}</td>
+          <td class="table-col">{{cliente.email}}</td>
+          <td class="table-col">{{cliente.telefono}}</td>
           <td class="table-col transp-bord">
             <div class="container">
               <p-button
-                (click)="MODIFICA(libro)"
+                (click)="MODIFICA(cliente)"
                 icon="pi pi-pencil"
                 label=""
                 pRipple
@@ -82,9 +84,9 @@
         </tr>
       </ng-template>
     </p-table>
-  </div> -->
+  </div>
 
-  <!-- <p-dialog
+  <p-dialog
     [header]="lbl_header"
     [(visible)]="showDialog"
     [style]="{ width: '1000px' }"
@@ -157,7 +159,7 @@
           
         <div class="formgrid grid">
           <div class="field col">
-            <label htmlFor="eta">PREZZO</label>
+            <label htmlFor="eta">ETA</label>
             <p-inputNumber
               id="eta"
               name="eta"
@@ -212,7 +214,7 @@
   
         
         <div class="flex-parent jc-center">
-          <button
+          <!-- <button
             pButton
             type="submit"
             [label]="lblBtnSubmit"
@@ -227,11 +229,11 @@
             class="p-button-danger mb-3 button-size"
             [disabled]="nascondiTastoElimina"
           ></button>
-          
+           -->
           <div *ngIf="errorOccurred" [ngClass]="errorOccurred ? 'ng-errors' : ''">
             {{ message }}
           </div>
         </div>
       </form>
     </ng-template>
-  </p-dialog> -->
+  </p-dialog>
