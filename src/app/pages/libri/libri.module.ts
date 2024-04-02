@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from "@angular/core";
+import {  NgModule } from "@angular/core";
 import { LibriComponent } from "./libri.component";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
@@ -20,7 +20,6 @@ const routes: Routes = [
     component: LibriComponent,
   },
 ];
-
 
 @NgModule({
   declarations: [LibriComponent],

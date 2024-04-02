@@ -1,26 +1,69 @@
-<p>fedele</p>
 <div class="card">
-    <p-table
-      class="table"
-      [value]="libri"
-      [loading]="loading"
-      [paginator]="true"
-      [rows]="10"
-      [showCurrentPageReport]="true"
-      currentPageReportTemplate="Mostra {first} su {last} di {totalRecords} {{
-        label
-      }}"
-      [rowsPerPageOptions]="[10, 25, 50]"
-      [tableStyle]="{ 'min-width': '50rem' }"
-    >
-      <ng-template pTemplate="caption">
-        <div class="flex align-items-center justify-content-between text-center">
-          <h3>LIBRI</h3>
-          <div class="container">
-            <p-button
+  <p-table
+    class="table"
+    [value]="libri"
+    [loading]="loading"
+    [paginator]="true"
+    [rows]="10"
+    [showCurrentPageReport]="true"
+    currentPageReportTemplate="Mostra {first} su {last} di {totalRecords} {{
+      label
+    }}"
+    [rowsPerPageOptions]="[10, 25, 50]"
+    [tableStyle]="{ 'min-width': '50rem' }"
+  >
+    <ng-template pTemplate="caption">
+      <div class="flex align-items-center justify-content-between text-center">
+        <h3>LIBRI</h3>
+        <div class="container"></div>
+        <p-button
               (click)="Finestramodale()"
               icon="pi pi-plus"
-              label="Aggiungi Libro"
+              pRipple
+              [style]="{
+                'background-color': '#00a79d',
+                'border-color': '#00a79d',
+                color: 'white'
+              }"
+            >
+            </p-button>
+      </div>
+    </ng-template>
+    
+    <ng-template pTemplate="header">
+      <tr>
+        <th class="table-col" pSortableColumn="titolo">
+          TITOLO<p-sortIcon field="titolo"></p-sortIcon>
+        </th>
+
+        <th class="table-col" pSortableColumn="autore">
+          AUTORE
+          <p-columnFilter
+            type="text"
+            field="autore"
+            display="menu"
+          ></p-columnFilter>
+          <p-sortIcon field="autore"></p-sortIcon>
+        </th>
+        <th class="table-col" pSortableColumn="prezzo">
+          PREZZO <p-sortIcon field="prezzo"></p-sortIcon>
+        </th>
+        <th class="table-col">CATEGORIA</th>
+        <th class="table-col">AZIONI</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-libro>
+      <tr>
+        <td class="table-col">{{ libro.titolo }}</td>
+        <td class="table-col">{{ libro.autore }}</td>
+        <td class="table-col">{{ libro.prezzo | currency : "EUR" }}</td>
+        <td class="table-col">{{ libro.categoria }}</td>
+        <td class="table-col transp-bord">
+          <div class="container">
+            <p-button
+              (click)="viewOrEdit_PrepareFinestraModale(libro)"
+              icon="pi pi-pencil"
+              label=""
               pRipple
               [style]="{
                 'background-color': '#00a79d',
@@ -30,211 +73,165 @@
             >
             </p-button>
           </div>
-        </div>
-      </ng-template>
-  
-      <ng-template pTemplate="header">
-        <tr>
-          <th class="table-col" pSortableColumn="titolo">
-            TITOLO <p-sortIcon field="titolo"></p-sortIcon>
-          </th>
-  
-          <th class="table-col" pSortableColumn="autore">
-            AUTORE
-            <p-columnFilter
-              type="text"
-              field="autore"
-              display="menu"
-            ></p-columnFilter>
-            <p-sortIcon field="autore"></p-sortIcon>
-          </th>
-          <th class="table-col" pSortableColumn="prezzo">
-            PREZZO <p-sortIcon field="prezzo"></p-sortIcon>
-          </th>
-          <th class="table-col">CATEGORIA</th>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-libro>
-        <tr>
-          <td class="table-col">{{ libro.titolo }}</td>
-          <td class="table-col">{{ libro.autore }}</td>
-          <td class="table-col">{{ libro.prezzo }}</td>
-          <td class="table-col">{{ libro.categoria}}</td>
-          <td class="table-col transp-bord">
-            <div class="container">
-              <p-button
-                (click)="viewOrEdit_PrepareFinestraModale(libro)"
-                icon="pi pi-pencil"
-                label=""
-                pRipple
-                [style]="{
-                  'background-color': '#00a79d',
-                  'border-color': '#00a79d',
-                  color: 'white'
-                }"
-              >
-              </p-button>
-            </div>
-          </td>
-        </tr>
-      </ng-template>
-    </p-table>
-  </div>
-
-  <p-dialog
-    [header]="lbl_header"
-    [(visible)]="showDialog"
-    [style]="{ width: '1000px' }"
-    [modal]="true"
-    [maximizable]="true"
-    styleClass="p-fluid"
-  > 
-    <ng-template pTemplate="content">
-      <form #f="ngForm">
-        <div class="formgrid grid">
-          <div class="field col">
-            <label htmlFor="titolo">TITOLO</label>
-            <input
-              type="text"
-              pInputText
-              id="titolo"
-              [(ngModel)]="libroInTheForm.titolo"
-              #titolo="ngModel"
-              required
-              name="titolo"
-              autofocus
-              [ngClass]="{
-                'ng-invalid ng-dirty':
-                  (titolo.dirty || titolo.touched) &&
-                  titolo.errors
-              }"
-            />
-            <div
-              *ngIf="
-                (titolo.dirty || titolo.touched) &&
-                titolo.errors
-              "
-              class="alert alert-danger"
-            >
-              <p-message
-                severity="error"
-                text="L'ID del pacchetto è obbligatorio"
-                [@errorState]="titolo?.errors?.['required'] ? 'visible' : 'hidden'"
-              ></p-message>
-            </div>
-          </div>
-  
-          <div class="field col">
-            <label htmlFor="autore">AUTORE</label>
-            <input
-              type="text"
-              pInputText
-              id="autore"
-              [(ngModel)]="libroInTheForm.autore"
-              #autore="ngModel"
-              required
-              name="autore"
-              autofocus
-              [ngClass]="{
-                'ng-invalid ng-dirty': (autore.dirty || autore.touched) && autore.errors
-              }"
-            />
-            <div
-              *ngIf="(autore.dirty || autore.touched) && autore.errors"
-              class="alert alert-danger"
-            >
-              <p-message
-                severity="error"
-                text="L'Autore è obbligatorio"
-                [@errorState]="autore?.errors?.['required'] ? 'visible' : 'hidden'"
-              ></p-message>
-            </div>
-          </div>
-        </div>
-          
-        <div class="formgrid grid">
-          <div class="field col">
-            <label htmlFor="prezzo">PREZZO</label>
-            <input
-              id="prezzo"
-              name="prezzo"
-              #prezzo="ngModel"
-              [(ngModel)]="libroInTheForm.prezzo"
-              autofocus
-              [ngClass]="{
-                'ng-invalid ng-dirty':
-                  (prezzo.dirty || prezzo.touched) && prezzo.errors
-              }"
-            />
-            <div
-              *ngIf="(prezzo.dirty || prezzo.touched) && prezzo.errors"
-              class="alert alert-danger"
-            >
-              <p-message
-                severity="error"
-                text="Il prezzo è obbligatorio"
-                [@errorState]="prezzo?.errors?.['required'] ? 'visible' : 'hidden'"
-              ></p-message>
-            </div>
-          </div>
-  
-          <div class="field col">
-            <label htmlFor="categoria">CATEGORIA</label>
-            <input
-              type="text"
-              pInputText
-              id="categoria"
-              [(ngModel)]="libroInTheForm.categoria"
-              #categoria="ngModel"
-              required
-              name="categoria"
-              autofocus
-              [ngClass]="{
-                'ng-invalid ng-dirty':
-                  (categoria.dirty || categoria.touched) && categoria.errors
-              }"
-            />
-            <div
-              *ngIf="(categoria.dirty || categoria.touched) && categoria.errors"
-              class="alert alert-danger"
-            >
-              <p-message
-                severity="error"
-                text="La categoria è obbligatoria"
-                [@errorState]="categoria?.errors?.['required'] ? 'visible' : 'hidden'"
-              ></p-message>
-            </div>
-          </div>
-        </div>
-  
-       
-        <div class="flex-parent jc-center">
-          <button
-            pButton
-            type="submit"
-            [label]="lblBtnSubmit"
-            (click)="SALVA(libroInTheForm._id)"
-            class="p-button-success mb-3 button-size"
-          ></button>
-          <button
-            pButton
-            type="button"
-            label="Elimina"
-            (click)="elimina(libroInTheForm._id)"
-            class="p-button-danger mb-3 button-size"
-            [disabled]="nascondiTastoElimina"
-          ></button> 
-           <button
-            pButton
-            type="button"
-            label="Annulla"
-            class="p-button-secondary mb-3 button-size"
-          ></button>
-          <div *ngIf="errorOccurred" [ngClass]="errorOccurred ? 'ng-errors' : ''">
-            {{ message }}
-          </div>
-        </div>
-      </form>
+        </td>
+      </tr>
     </ng-template>
-  </p-dialog>  
-  
+  </p-table>
+</div>
+
+<p-dialog
+  [header]="lbl_header"
+  [(visible)]="visibleDialog"
+  [style]="{ width: '1000px' }"
+  [modal]="true"
+  [maximizable]="true"
+  styleClass="p-fluid"
+>
+  <ng-template pTemplate="content">
+    <form #f="ngForm">
+      <div class="formgrid grid">
+        <div class="field col">
+          <label htmlFor="titolo">TITOLO</label>
+          <input
+            type="text"
+            pInputText
+            id="titolo"
+            [(ngModel)]="libroInTheForm.titolo"
+            required
+            name="titolo"
+            #titolo="ngModel"
+            autofocus
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                (titolo.dirty || titolo.touched) && titolo.errors
+            }"
+          />
+          <div
+            *ngIf="(titolo.dirty || titolo.touched) && titolo.errors"
+            class="alert alert-danger"
+          >
+            <p-message
+              severity="error"
+              text="Il titolo è obbligatorio"
+              [@errorState]="titolo?.errors?.['required'] ? 'visible' : 'hidden'"
+            ></p-message>
+          </div>
+        </div>
+
+        <div class="field col">
+          <label htmlFor="autore">AUTORE</label>
+          <input
+            type="text"
+            pInputText
+            id="autore"
+            [(ngModel)]="libroInTheForm.autore"
+            required
+            name="autore"
+            #autore="ngModel"
+            autofocus
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                (autore.dirty || autore.touched) && autore.errors
+            }"
+          />
+          <div
+            *ngIf="(autore.dirty || autore.touched) && autore.errors"
+            class="alert alert-danger"
+          >
+            <p-message
+              severity="error"
+              text="L'Autore è obbligatorio"
+              [@errorState]="autore?.errors?.['required'] ? 'visible' : 'hidden'"
+            ></p-message>
+          </div>
+        </div>
+      </div>
+
+      <div class="formgrid grid">
+        <div class="field col">
+          <label htmlFor="prezzo">PREZZO</label>
+          <input
+            type="text"
+            pInputText
+            id="prezzo"
+            [(ngModel)]="libroInTheForm.prezzo"
+            required
+            #prezzo="ngModel"
+            name="prezzo"
+            autofocus
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                (prezzo.dirty || prezzo.touched) && prezzo.errors
+            }"
+          />
+          <div
+            *ngIf="(prezzo.dirty || prezzo.touched) && prezzo.errors"
+            class="alert alert-danger"
+          >
+            <p-message
+              severity="error"
+              text="Il prezzo è obbligatorio"
+              [@errorState]="prezzo?.errors?.['required'] ? 'visible' : 'hidden'"
+            ></p-message>
+          </div>
+        </div>
+
+        <div class="field col">
+          <label htmlFor="categoria">CATEGORIA</label>
+          <input
+            type="text"
+            pInputText
+            id="categoria"
+            [(ngModel)]="libroInTheForm.categoria"
+            #categoria="ngModel"
+            required
+            name="categoria"
+            autofocus
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                (categoria.dirty || categoria.touched) && categoria.errors
+            }"
+          />
+          <div
+            *ngIf="(categoria.dirty || categoria.touched) && categoria.errors"
+            class="alert alert-danger"
+          >
+            <p-message
+              severity="error"
+              text="La categoria è obbligatoria"
+              [@errorState]="categoria?.errors?.['required'] ? 'visible' : 'hidden'"
+            ></p-message>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex-parent jc-center">
+        <button
+          pButton
+          type="submit"
+          [label]="lblBtnSubmit"
+          (click)="salvalibro(libroInTheForm._id)"
+          class="p-button-success mb-3 button-size"
+        ></button>
+        <button
+          pButton
+          type="button"
+          label="Elimina"
+          (click)="eliminalibro(libroInTheForm._id)"
+          class="p-button-danger mb-3 button-size"
+          [disabled]="nascondiTastoElimina"
+        ></button>
+        <button
+          pButton
+          type="button"
+          label="Annulla"
+          class="p-button-secondary mb-3 button-size"
+          (click)="annulla()"
+        ></button>
+        <div *ngIf="errorOccurred" [ngClass]="errorOccurred ? 'ng-errors' : ''">
+          {{ message }}
+        </div>
+      </div>
+    </form>
+  </ng-template>
+</p-dialog>

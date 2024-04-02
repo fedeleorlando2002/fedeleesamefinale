@@ -1,4 +1,4 @@
-import {  NgModule } from '@angular/core';
+import {  CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
@@ -8,10 +8,7 @@ import { CommonModule } from '@angular/common';
 
 // pagine
 import { AppComponent } from './app.component';
-import { MySidebarModule} from './pages/sidebar/sidebar.module';
-
-
-
+import { MyMenuBarModule } from './pages/menubar/menubar.module';
 
 
 @NgModule({
@@ -19,15 +16,16 @@ import { MySidebarModule} from './pages/sidebar/sidebar.module';
     AppComponent,
   ],
   imports: [
-    MySidebarModule,
     BrowserModule,
     FormsModule,
     CommonModule,
+    MyMenuBarModule,
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
   
   ],
+  schemas:[CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent],
   providers: [],
 })

@@ -8,7 +8,7 @@ import { LibriService } from 'src/app/shared/service/libri.service';
   styleUrls: ['./libri.component.css']
 })
 
-export class LibriComponent {
+export class LibriComponent{
 
   libroInTheForm!: Libro;
   libri: Libro[] = [];
@@ -17,13 +17,12 @@ export class LibriComponent {
   loading = true;
   lblBtnSubmit: string = "Salva";
   errorOccurred: boolean = false;
-  showDialog = false;
+  visibleDialog = false;
   editMode: boolean = false;
   nascondiTastoElimina: boolean = false;
   message: string = "";
 
   constructor(private libriService: LibriService) {
-  
   }
 
   ngOnInit(): void {
@@ -33,30 +32,73 @@ export class LibriComponent {
     });
   }
 
-  
   Finestramodale() {
-    this.lbl_header = "Inserisci un nuovo Pacchetto Salute";
-    this.showDialog = true; //questo serve per aprire il p-dialog
-    this.editMode = false; //questo serve per capire se si sta modificando un dottore o se si sta inserendo un nuovo dottore
-    this.libroInTheForm = {} as Libro; //questo serve per inizializzare il nuovo dottore
-    this.lblBtnSubmit = "Salva"; //questo serve per cambiare il testo del bottone
+    this.lbl_header = "Inserisci un nuovo Libro";
+    this.visibleDialog = true; 
+    this.editMode = false; 
+    this.libroInTheForm = {} as Libro; 
+    this.lblBtnSubmit = "Salva"; 
     this.nascondiTastoElimina = true;
   }
 
   viewOrEdit_PrepareFinestraModale(libro: Libro) {
-    this.lbl_header = `Modifica/Elimina Libro: ${libro.autore}`;
-    this.showDialog = true;
+    this.lbl_header = `Modifica/Elimina Libro: ${libro.titolo}`;
+    this.visibleDialog = true;
     this.libroInTheForm = libro;
     this.editMode = true;
-    this.lblBtnSubmit = "Aggiorna"; //questo serve per cambiare il testo del bottone
+    this.lblBtnSubmit = "Aggiorna"; 
     this.nascondiTastoElimina = false;
   }
 
-  SALVA(_id: string | undefined) {
-   
+  salvalibro(_id: string | undefined) {
+    if (_id && this.editMode) {
+      let libro: Libro = { ...this.libroInTheForm};
+      delete libro._id
+      this.libriService.put(_id, libro).subscribe((data: Libro) => {
+        this.visibleDialog = false;
+      });
+    } else {
+      this.libriService.post(this.libroInTheForm).subscribe(() => {
+        this.visibleDialog = false;
+      });
+    }
+    this.libriService.get().subscribe((data) => {
+      this.libri = data;
+      this.loading = false;
+    });
   }
 
-  elimina(_id: string | undefined) {
-  
-   }
+  eliminalibro(_id: string | undefined) {
+    if (!_id) {
+      _id = "";
+    }
+    if (confirm("Sei sicuro di voler eliminare questo libro?")) {
+      this.libriService.delete(_id).subscribe(
+        () => {
+          this.libri = this.libri.filter(
+            (libro) => libro._id !== _id
+          );
+          this.visibleDialog= false;
+        },
+        // (error) => {
+        //   console.error(
+        //     "Errore durante l'eliminazione del pacchetto salute",
+        //     error
+        //   );
+        //   this.errorOccurred = true;
+        //   this.message =
+        //     "Si è verificato un errore durante l'eliminazione del pacchetto salute.";
+        // }
+      );
+    }
+    this.visibleDialog = false;
+  }
+
+  annulla() {
+    this.visibleDialog = false;
+    this.libriService.get().subscribe((data) => {
+      this.libri = data;
+      this.loading = false;
+    });
+  }
 }

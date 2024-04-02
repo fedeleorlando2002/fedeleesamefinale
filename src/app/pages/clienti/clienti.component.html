@@ -1,7 +1,4 @@
-<p>clienti works!</p>
-
-
-<div class="card">
+<!-- <div class="card">
     <p-table
       class="table"
       [value]="clienti"
@@ -56,6 +53,7 @@
           </th>
           
           <th class="table-col">TELEFONO</th>
+          <th class="table-col">MODIFICHE</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-cliente>
@@ -88,7 +86,7 @@
 
   <p-dialog
     [header]="lbl_header"
-    [(visible)]="showDialog"
+    [(visible)]="visibleDialog"
     [style]="{ width: '1000px' }"
     [modal]="true"
     [maximizable]="true"
@@ -211,29 +209,93 @@
             </div>
           </div>
         </div>
-  
+
+        <div class="formgrid grid">
+          <div class="field col">
+            <label htmlFor="telefono">TELEFONO</label>
+            <p-inputNumber
+              id="telefono"
+              name="telefono"
+              #telefono="ngModel"
+              [(ngModel)]="clienteInTheForm.telefono"
+              autofocus
+              [ngClass]="{
+                'ng-invalid ng-dirty':
+                  (telefono.dirty || telefono.touched) && telefono.errors
+              }"
+            />
+            <div
+              *ngIf="(telefono.dirty || telefono.touched) && telefono.errors"
+              class="alert alert-danger"
+            >
+              <p-message
+                severity="error"
+                text="telefono è obbligatorio"
+                [@errorState]="telefono?.errors?.['required'] ? 'visible' : 'hidden'"
+              ></p-message>
+            </div>
+          </div>
+        </div>
         
         <div class="flex-parent jc-center">
-          <!-- <button
+          <button
             pButton
             type="submit"
             [label]="lblBtnSubmit"
-            (click)="SALVA()"
+            (click)="salvacliente(clienteInTheForm._id)"
             class="p-button-success mb-3 button-size"
           ></button>
           <button
             pButton
             type="button"
             label="Elimina"
-            (click)="ELIMINA()"
+            (click)="eliminacliente(clienteInTheForm._id)"
             class="p-button-danger mb-3 button-size"
             [disabled]="nascondiTastoElimina"
           ></button>
-           -->
+           
           <div *ngIf="errorOccurred" [ngClass]="errorOccurred ? 'ng-errors' : ''">
             {{ message }}
           </div>
         </div>
       </form>
     </ng-template>
-  </p-dialog>
+  </p-dialog> -->
+
+
+
+
+
+
+
+  
+<div class="card">
+  <p-table
+      [value]="clienti"
+      [paginator]="true"
+      [rows]="5"
+      [showCurrentPageReport]="true"
+      [tableStyle]="{ 'min-width': '50rem' }"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [rowsPerPageOptions]="[10, 25, 50]"
+  >
+      <ng-template pTemplate="header">
+          <tr>
+              <th style="width:25%">NOME</th>
+              <th style="width:25%">COGNOME</th>
+              <th style="width:25%">EMAIL</th>
+              <th style="width:25%">ETA</th>
+              <th style="width:25%">TELEFONO</th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-libro>
+          <tr>
+              <td>{{ libro.nome }}</td>
+              <td>{{ libro.cognome }}</td>
+              <td>{{ libro.email}}</td>
+              <td>{{ libro.eta }}</td>
+              <td>{{ libro.telefono }}</td>
+          </tr>
+      </ng-template>
+  </p-table>
+</div>

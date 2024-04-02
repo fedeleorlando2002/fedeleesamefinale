@@ -4,5 +4,5 @@ export interface Cliente{
     cognome: string;
     email : string;
     eta: number;
-    telefono: number;
+    telefono: string;
   }

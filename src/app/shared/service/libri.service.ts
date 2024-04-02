@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 })
 
 export class LibriService extends BaseService<Libro> {
-  
+
   override section: string = '/libri';
 
   constructor(http: HttpClient) {
