@@ -1,0 +1,5 @@
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Due colonne con larghezza flessibile */
+    grid-column-gap: 30px; /* Spazio tra le colonne */
+  }

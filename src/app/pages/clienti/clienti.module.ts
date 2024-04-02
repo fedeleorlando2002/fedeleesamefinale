@@ -36,6 +36,7 @@ const routes: Routes = [
     InputTextModule,
     InputNumberModule,
     InputTextareaModule,   
+    
   ],
 
 })

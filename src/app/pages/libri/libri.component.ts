@@ -26,6 +26,12 @@ export class LibriComponent{
   }
 
   ngOnInit(): void {
+    this.loadLibri();
+  }
+
+
+  
+  loadLibri() {
     this.libriService.get().subscribe((data) => {
       this.libri = data;
       this.loading = false;
@@ -50,22 +56,38 @@ export class LibriComponent{
     this.nascondiTastoElimina = false;
   }
 
+  // salvalibro(_id: string | undefined) {
+  //   if (_id && this.editMode) {
+  //     let libro: Libro = { ...this.libroInTheForm};
+  //     delete libro._id
+  //     this.libriService.put(_id, libro).subscribe((data: Libro) => {
+  //       this.visibleDialog = false;
+  //     });
+  //   } else {
+  //     this.libriService.post(this.libroInTheForm).subscribe(() => {
+  //       this.visibleDialog = false;
+  //     });
+  //   }
+  //   this.libriService.get().subscribe((data) => {
+  //     this.libri = data;
+  //     this.loading = false;
+  //   });
+  // }
+
   salvalibro(_id: string | undefined) {
     if (_id && this.editMode) {
       let libro: Libro = { ...this.libroInTheForm};
-      delete libro._id
+      delete libro._id;
       this.libriService.put(_id, libro).subscribe((data: Libro) => {
+        this.updateLibroArray(data);
         this.visibleDialog = false;
       });
     } else {
-      this.libriService.post(this.libroInTheForm).subscribe(() => {
+      this.libriService.post(this.libroInTheForm).subscribe((data: Libro) => {
+        this.addLibroToArray(data);
         this.visibleDialog = false;
       });
     }
-    this.libriService.get().subscribe((data) => {
-      this.libri = data;
-      this.loading = false;
-    });
   }
 
   eliminalibro(_id: string | undefined) {
@@ -80,18 +102,23 @@ export class LibriComponent{
           );
           this.visibleDialog= false;
         },
-        // (error) => {
-        //   console.error(
-        //     "Errore durante l'eliminazione del pacchetto salute",
-        //     error
-        //   );
-        //   this.errorOccurred = true;
-        //   this.message =
-        //     "Si è verificato un errore durante l'eliminazione del pacchetto salute.";
-        // }
       );
     }
     this.visibleDialog = false;
+  }
+
+   // Metodi di aggiornamento dell'array libri
+   private updateLibroArray(updatedLibro: Libro) {
+    this.libri = this.libri.map(libro => {
+      if (libro._id === updatedLibro._id) {
+        return updatedLibro;
+      }
+      return libro;
+    });
+  }
+
+  private addLibroToArray(newLibro: Libro) {
+    this.libri.push(newLibro);
   }
 
   annulla() {

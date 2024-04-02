@@ -54,6 +54,7 @@ export class ClientiComponent {
   salvacliente(_id: string | undefined) {
     if (_id && this.editMode) {
       let cliente: Cliente = { ...this.clienteInTheForm};
+      delete cliente._id
       this.clientiService.put(_id, cliente).subscribe((data: Cliente) => {
         this.visibleDialog = false;
       });
@@ -62,7 +63,6 @@ export class ClientiComponent {
         this.visibleDialog = false;
       });
     }
-
     this.clientiService.get().subscribe((data) => {
       this.clienti = data;
       this.loading = false;

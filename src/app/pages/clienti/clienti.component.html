@@ -1,3 +1,240 @@
+<div class="card">
+  <p-table
+    [value]="clienti"
+    [paginator]="true"
+    [rows]="5"
+    [showCurrentPageReport]="true"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    currentPageReportTemplate="Mostra {first} to {last} of {totalRecords} {{
+      label
+    }}"
+    [rowsPerPageOptions]="[10, 25, 50]"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 25%">NOME</th>
+        <th style="width: 25%">COGNOME</th>
+        <th style="width: 25%">EMAIL</th>
+        <th style="width: 25%">ETA</th>
+        <th style="width: 25%">TELEFONO</th>
+        <th style="width: 25%">MODIFICHE</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-cliente>
+      <tr>
+        <td>{{ cliente.nome }}</td>
+        <td>{{ cliente.cognome }}</td>
+        <td>{{ cliente.email }}</td>
+        <td>{{ cliente.eta }}</td>
+        <td>{{ cliente.telefono }}</td>
+        <td>
+        <div class="container">
+          <p-button
+            (click)="MODIFICA(cliente)"
+            icon="pi pi-pencil"
+            label=""
+            pRipple
+            [style]="{
+              'background-color': '#00a79d',
+              'border-color': '#00a79d',
+              color: 'white'
+            }"
+          >
+          </p-button>
+        </div>
+      </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="paginatorleft">
+      <p-button
+        (click)="Finestramodale()"
+        icon="pi pi-plus"
+        label=""
+        pRipple
+        [style]="{
+          'background-color': '#00a79d',
+          'border-color': '#00a79d',
+          color: 'white'
+        }"
+      >
+      </p-button>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-dialog
+  [header]="lbl_header"
+  [(visible)]="visibleDialog"
+  [style]="{ width: '1000px' }"
+  [modal]="true"
+  [maximizable]="true"
+  styleClass="p-fluid"
+>
+  <ng-template pTemplate="content">
+    <form #f="ngForm">
+      <div class="formgrid grid">
+        <div class="field col">
+          <label htmlFor="nome">NOME</label>
+          <input
+            type="text"
+            pInputText
+            id="nome"
+            [(ngModel)]="clienteInTheForm.nome"
+            #nome="ngModel"
+            required
+            name="nome"
+            autofocus
+            [ngClass]="{
+              'ng-invalid ng-dirty': (nome.dirty || nome.touched) && nome.errors
+            }"
+          />
+          <div
+            *ngIf="(nome.dirty || nome.touched) && nome.errors"
+            class="alert alert-danger"
+          >
+            <p-message
+              severity="error"
+              text="L'ID del pacchetto è obbligatorio"
+              [@errorState]="nome?.errors?.['required'] ? 'visible' : 'hidden'"
+            ></p-message>
+          </div>
+        </div>
+
+        <div class="field col">
+          <label htmlFor="cognome">COGNOME</label>
+          <input
+            type="text"
+            pInputText
+            id="cognome"
+            [(ngModel)]="clienteInTheForm.cognome"
+            #cognome="ngModel"
+            required
+            name="cognome"
+            autofocus
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                (cognome.dirty || cognome.touched) && cognome.errors
+            }"
+          />
+          <div
+            *ngIf="(cognome.dirty || cognome.touched) && cognome.errors"
+            class="alert alert-danger"
+          >
+            <p-message
+              severity="error"
+              text="cognome è obbligatorio"
+              [@errorState]="cognome?.errors?.['required'] ? 'visible' : 'hidden'"
+            ></p-message>
+          </div>
+        </div>
+      </div>
+
+      <div class="formgrid grid">
+        <div class="field col">
+          <label htmlFor="eta">ETA</label>
+          <p-inputNumber
+            id="eta"
+            name="eta"
+            #eta="ngModel"
+            [(ngModel)]="clienteInTheForm.eta"
+            autofocus
+            [ngClass]="{
+              'ng-invalid ng-dirty': (eta.dirty || eta.touched) && eta.errors
+            }"
+          />
+          <div
+            *ngIf="(eta.dirty || eta.touched) && eta.errors"
+            class="alert alert-danger"
+          >
+            <p-message
+              severity="error"
+              text="eta è obbligatorio"
+              [@errorState]="eta?.errors?.['required'] ? 'visible' : 'hidden'"
+            ></p-message>
+          </div>
+        </div>
+
+        <div class="field col">
+          <label htmlFor="email">EMAIL</label>
+          <input
+            type="text"
+            pInputText
+            id="email"
+            [(ngModel)]="clienteInTheForm.email"
+            #email="ngModel"
+            required
+            name="email"
+            autofocus
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                (email.dirty || email.touched) && email.errors
+            }"
+          />
+          <div
+            *ngIf="(email.dirty || email.touched) && email.errors"
+            class="alert alert-danger"
+          >
+            <p-message
+              severity="error"
+              text="email è obbligatoria"
+              [@errorState]="email?.errors?.['required'] ? 'visible' : 'hidden'"
+            ></p-message>
+          </div>
+        </div>
+      </div>
+
+      <div class="formgrid grid">
+        <div class="field col">
+          <label htmlFor="telefono">TELEFONO</label>
+          <p-inputNumber
+            id="telefono"
+            name="telefono"
+            #telefono="ngModel"
+            [(ngModel)]="clienteInTheForm.telefono"
+            autofocus
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                (telefono.dirty || telefono.touched) && telefono.errors
+            }"
+          />
+          <div
+            *ngIf="(telefono.dirty || telefono.touched) && telefono.errors"
+            class="alert alert-danger"
+          >
+            <p-message
+              severity="error"
+              text="telefono è obbligatorio"
+              [@errorState]="telefono?.errors?.['required'] ? 'visible' : 'hidden'"
+            ></p-message>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex-parent jc-center">
+        <button
+          pButton
+          type="submit"
+          [label]="lblBtnSubmit"
+          (click)="salvacliente(clienteInTheForm._id)"
+          class="p-button-success mb-3 button-size"
+        ></button>
+        <button
+          pButton
+          type="button"
+          label="Elimina"
+          (click)="eliminacliente(clienteInTheForm._id)"
+          class="p-button-danger mb-3 button-size"
+          [disabled]="nascondiTastoElimina"
+        ></button>
+
+        <div *ngIf="errorOccurred" [ngClass]="errorOccurred ? 'ng-errors' : ''">
+          {{ message }}
+        </div>
+      </div>
+    </form>
+  </ng-template>
+</p-dialog>
+
 <!-- <div class="card">
     <p-table
       class="table"
@@ -82,220 +319,4 @@
         </tr>
       </ng-template>
     </p-table>
-  </div>
-
-  <p-dialog
-    [header]="lbl_header"
-    [(visible)]="visibleDialog"
-    [style]="{ width: '1000px' }"
-    [modal]="true"
-    [maximizable]="true"
-    styleClass="p-fluid"
-  >
-    <ng-template pTemplate="content">
-      <form #f="ngForm">
-        <div class="formgrid grid">
-          <div class="field col">
-            <label htmlFor="nome">NOME</label>
-            <input
-              type="text"
-              pInputText
-              id="nome"
-              [(ngModel)]="clienteInTheForm.nome"
-              #nome="ngModel"
-              required
-              name="nome"
-              autofocus
-              [ngClass]="{
-                'ng-invalid ng-dirty':
-                  (nome.dirty || nome.touched) &&
-                  nome.errors
-              }"
-            />
-            <div
-              *ngIf="
-                (nome.dirty || nome.touched) &&
-                nome.errors
-              "
-              class="alert alert-danger"
-            >
-              <p-message
-                severity="error"
-                text="L'ID del pacchetto è obbligatorio"
-                [@errorState]="nome?.errors?.['required'] ? 'visible' : 'hidden'"
-              ></p-message>
-            </div>
-          </div>
-  
-          <div class="field col">
-            <label htmlFor="cognome">COGNOME</label>
-            <input
-              type="text"
-              pInputText
-              id="cognome"
-              [(ngModel)]="clienteInTheForm.cognome"
-              #cognome="ngModel"
-              required
-              name="cognome"
-              autofocus
-              [ngClass]="{
-                'ng-invalid ng-dirty': (cognome.dirty || cognome.touched) && cognome.errors
-              }"
-            />
-            <div
-              *ngIf="(cognome.dirty || cognome.touched) && cognome.errors"
-              class="alert alert-danger"
-            >
-              <p-message
-                severity="error"
-                text="cognome è obbligatorio"
-                [@errorState]="cognome?.errors?.['required'] ? 'visible' : 'hidden'"
-              ></p-message>
-            </div>
-          </div>
-        </div>
-          
-        <div class="formgrid grid">
-          <div class="field col">
-            <label htmlFor="eta">ETA</label>
-            <p-inputNumber
-              id="eta"
-              name="eta"
-              #eta="ngModel"
-              [(ngModel)]="clienteInTheForm.eta"
-              autofocus
-              [ngClass]="{
-                'ng-invalid ng-dirty':
-                  (eta.dirty || eta.touched) && eta.errors
-              }"
-            />
-            <div
-              *ngIf="(eta.dirty || eta.touched) && eta.errors"
-              class="alert alert-danger"
-            >
-              <p-message
-                severity="error"
-                text="eta è obbligatorio"
-                [@errorState]="eta?.errors?.['required'] ? 'visible' : 'hidden'"
-              ></p-message>
-            </div>
-          </div>
-  
-          <div class="field col">
-            <label htmlFor="email">EMAIL</label>
-            <input
-              type="text"
-              pInputText
-              id="email"
-              [(ngModel)]="clienteInTheForm.email"
-              #email="ngModel"
-              required
-              name="email"
-              autofocus
-              [ngClass]="{
-                'ng-invalid ng-dirty':
-                  (email.dirty || email.touched) && email.errors
-              }"
-            />
-            <div
-              *ngIf="(email.dirty || email.touched) && email.errors"
-              class="alert alert-danger"
-            >
-              <p-message
-                severity="error"
-                text="email è obbligatoria"
-                [@errorState]="email?.errors?.['required'] ? 'visible' : 'hidden'"
-              ></p-message>
-            </div>
-          </div>
-        </div>
-
-        <div class="formgrid grid">
-          <div class="field col">
-            <label htmlFor="telefono">TELEFONO</label>
-            <p-inputNumber
-              id="telefono"
-              name="telefono"
-              #telefono="ngModel"
-              [(ngModel)]="clienteInTheForm.telefono"
-              autofocus
-              [ngClass]="{
-                'ng-invalid ng-dirty':
-                  (telefono.dirty || telefono.touched) && telefono.errors
-              }"
-            />
-            <div
-              *ngIf="(telefono.dirty || telefono.touched) && telefono.errors"
-              class="alert alert-danger"
-            >
-              <p-message
-                severity="error"
-                text="telefono è obbligatorio"
-                [@errorState]="telefono?.errors?.['required'] ? 'visible' : 'hidden'"
-              ></p-message>
-            </div>
-          </div>
-        </div>
-        
-        <div class="flex-parent jc-center">
-          <button
-            pButton
-            type="submit"
-            [label]="lblBtnSubmit"
-            (click)="salvacliente(clienteInTheForm._id)"
-            class="p-button-success mb-3 button-size"
-          ></button>
-          <button
-            pButton
-            type="button"
-            label="Elimina"
-            (click)="eliminacliente(clienteInTheForm._id)"
-            class="p-button-danger mb-3 button-size"
-            [disabled]="nascondiTastoElimina"
-          ></button>
-           
-          <div *ngIf="errorOccurred" [ngClass]="errorOccurred ? 'ng-errors' : ''">
-            {{ message }}
-          </div>
-        </div>
-      </form>
-    </ng-template>
-  </p-dialog> -->
-
-
-
-
-
-
-
-  
-<div class="card">
-  <p-table
-      [value]="clienti"
-      [paginator]="true"
-      [rows]="5"
-      [showCurrentPageReport]="true"
-      [tableStyle]="{ 'min-width': '50rem' }"
-      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-      [rowsPerPageOptions]="[10, 25, 50]"
-  >
-      <ng-template pTemplate="header">
-          <tr>
-              <th style="width:25%">NOME</th>
-              <th style="width:25%">COGNOME</th>
-              <th style="width:25%">EMAIL</th>
-              <th style="width:25%">ETA</th>
-              <th style="width:25%">TELEFONO</th>
-          </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-libro>
-          <tr>
-              <td>{{ libro.nome }}</td>
-              <td>{{ libro.cognome }}</td>
-              <td>{{ libro.email}}</td>
-              <td>{{ libro.eta }}</td>
-              <td>{{ libro.telefono }}</td>
-          </tr>
-      </ng-template>
-  </p-table>
-</div>
+  </div>  -->

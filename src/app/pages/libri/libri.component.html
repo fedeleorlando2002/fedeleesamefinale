@@ -15,7 +15,7 @@
     <ng-template pTemplate="caption">
       <div class="flex align-items-center justify-content-between text-center">
         <h3>LIBRI</h3>
-        <div class="container"></div>
+        <div class="container">
         <p-button
               (click)="Finestramodale()"
               icon="pi pi-plus"
@@ -28,6 +28,7 @@
             >
             </p-button>
       </div>
+      </div> 
     </ng-template>
     
     <ng-template pTemplate="header">
@@ -93,6 +94,7 @@
         <div class="field col">
           <label htmlFor="titolo">TITOLO</label>
           <input
+          class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             type="text"
             pInputText
             id="titolo"
@@ -121,6 +123,7 @@
         <div class="field col">
           <label htmlFor="autore">AUTORE</label>
           <input
+          class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             type="text"
             pInputText
             id="autore"
@@ -147,10 +150,13 @@
         </div>
       </div>
 
+      <br>
+
       <div class="formgrid grid">
         <div class="field col">
           <label htmlFor="prezzo">PREZZO</label>
           <input
+          class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             type="text"
             pInputText
             id="prezzo"
@@ -179,6 +185,7 @@
         <div class="field col">
           <label htmlFor="categoria">CATEGORIA</label>
           <input
+          class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             type="text"
             pInputText
             id="categoria"
@@ -205,20 +212,22 @@
         </div>
       </div>
 
+      <br>
+      
       <div class="flex-parent jc-center">
         <button
           pButton
           type="submit"
           [label]="lblBtnSubmit"
           (click)="salvalibro(libroInTheForm._id)"
-          class="p-button-success mb-3 button-size"
+          class="p-button-success mb-3 mr-3 button-size"
         ></button>
         <button
           pButton
           type="button"
           label="Elimina"
           (click)="eliminalibro(libroInTheForm._id)"
-          class="p-button-danger mb-3 button-size"
+          class="p-button-danger mb-3 mr-3 button-size"
           [disabled]="nascondiTastoElimina"
         ></button>
         <button
