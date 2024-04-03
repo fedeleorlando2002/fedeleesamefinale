@@ -29,7 +29,6 @@ export class LibriComponent{
     this.loadLibri();
   }
 
-
   
   loadLibri() {
     this.libriService.get().subscribe((data) => {
@@ -47,7 +46,7 @@ export class LibriComponent{
     this.nascondiTastoElimina = true;
   }
 
-  viewOrEdit_PrepareFinestraModale(libro: Libro) {
+  PrepareFinestraModale(libro: Libro) {
     this.lbl_header = `Modifica/Elimina Libro: ${libro.titolo}`;
     this.visibleDialog = true;
     this.libroInTheForm = libro;
@@ -56,23 +55,6 @@ export class LibriComponent{
     this.nascondiTastoElimina = false;
   }
 
-  // salvalibro(_id: string | undefined) {
-  //   if (_id && this.editMode) {
-  //     let libro: Libro = { ...this.libroInTheForm};
-  //     delete libro._id
-  //     this.libriService.put(_id, libro).subscribe((data: Libro) => {
-  //       this.visibleDialog = false;
-  //     });
-  //   } else {
-  //     this.libriService.post(this.libroInTheForm).subscribe(() => {
-  //       this.visibleDialog = false;
-  //     });
-  //   }
-  //   this.libriService.get().subscribe((data) => {
-  //     this.libri = data;
-  //     this.loading = false;
-  //   });
-  // }
 
   salvalibro(_id: string | undefined) {
     if (_id && this.editMode) {
@@ -102,6 +84,15 @@ export class LibriComponent{
           );
           this.visibleDialog= false;
         },
+        (error) => {
+          console.error(
+            "Errore durante l'eliminazione del libro",
+            error
+          );
+          this.errorOccurred = true;
+          this.message =
+            "Si è verificato un errore durante l'eliminazione del libro.";
+        }
       );
     }
     this.visibleDialog = false;
@@ -129,3 +120,34 @@ export class LibriComponent{
     });
   }
 }
+
+
+
+
+  // ngOnInit(): void {
+  //   this.libriService.get().subscribe((data) => {
+  //     this.libri = data;
+  //     this.loading = false;
+  //   });
+  // }
+
+
+
+
+// salvalibro(_id: string | undefined) {
+//   if (_id && this.editMode) {
+//     let libro: Libro = { ...this.libroInTheForm};
+//     delete libro._id
+//     this.libriService.put(_id, libro).subscribe((data: Libro) => {
+//       this.visibleDialog = false;
+//     });
+//   } else {
+//     this.libriService.post(this.libroInTheForm).subscribe(() => {
+//       this.visibleDialog = false;
+//     });
+//   }
+//   this.libriService.get().subscribe((data) => {
+//     this.libri = data;
+//     this.loading = false;
+//   });
+// }

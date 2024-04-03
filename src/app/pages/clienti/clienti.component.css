@@ -3,3 +3,23 @@
     grid-template-columns: repeat(2, 1fr); /* Due colonne con larghezza flessibile */
     grid-column-gap: 30px; /* Spazio tra le colonne */
   }
+
+
+
+  
+  .mr-3 {
+    margin-right: 0.75rem;
+  }
+  
+  
+.jc-center {
+  justify-content: center;
+}
+
+  .mb-3 {
+    margin-bottom: 3.75rem;
+  }
+  
+  .button-size {
+    width: 150px; /* Modifica la larghezza dei pulsanti a tuo piacimento */
+  }

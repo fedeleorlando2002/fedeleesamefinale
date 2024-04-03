@@ -7,6 +7,7 @@ import { ClientiService } from 'src/app/shared/service/clienti.service';
   templateUrl: './clienti.component.html',
   styleUrls: ['./clienti.component.css']
 })
+
 export class ClientiComponent {
 
   clienteInTheForm!: Cliente;
@@ -21,11 +22,15 @@ export class ClientiComponent {
   nascondiTastoElimina: boolean = false;
   message: string = "";
 
-  constructor(private clientiService: ClientiService ) {
-  
+  constructor(private clientiService: ClientiService) {
   }
 
   ngOnInit(): void {
+    this.loadClienti();
+  }
+
+
+  loadClienti() {
     this.clientiService.get().subscribe((data) => {
       this.clienti = data;
       this.loading = false;
@@ -35,14 +40,14 @@ export class ClientiComponent {
   Finestramodale() {
     this.lbl_header = "Inserisci un nuovo Cliente";
     this.visibleDialog = true; //questo serve per aprire il p-dialog
-    this.editMode = false; //questo serve per capire se si sta modificando un dottore o se si sta inserendo un nuovo dottore
-    this.clienteInTheForm = {} as Cliente; //questo serve per inizializzare il nuovo dottore
+    this.editMode = false; //questo serve per capire se si sta modificando un cliente o se si sta inserendo un nuovo cliente
+    this.clienteInTheForm = {} as Cliente; //questo serve per inizializzare il nuovo cliente
     this.lblBtnSubmit = "Salva"; //questo serve per cambiare il testo del bottone
     this.nascondiTastoElimina = true;
   }
 
-  MODIFICA(cliente: Cliente) {
-    this.lbl_header = `Modifica/Elimina Cliente: ${cliente.nome}`;
+  PrepareFinestraModale(cliente: Cliente) {
+    this.lbl_header = `Modifica/Elimina Cliente: ${cliente.nome}${cliente.cognome}`;
     this.visibleDialog = true;
     this.clienteInTheForm = cliente;
     this.editMode = true;
@@ -53,20 +58,18 @@ export class ClientiComponent {
 
   salvacliente(_id: string | undefined) {
     if (_id && this.editMode) {
-      let cliente: Cliente = { ...this.clienteInTheForm};
+      let cliente: Cliente = { ...this.clienteInTheForm };
       delete cliente._id
       this.clientiService.put(_id, cliente).subscribe((data: Cliente) => {
+        this.updateClienteArray(data);
         this.visibleDialog = false;
       });
     } else {
-      this.clientiService.post(this.clientiService).subscribe(() => {
+      this.clientiService.post(this.clienteInTheForm).subscribe((data: Cliente) => {
+        this.addClienteToArray(data);
         this.visibleDialog = false;
       });
     }
-    this.clientiService.get().subscribe((data) => {
-      this.clienti = data;
-      this.loading = false;
-    });
   }
 
   eliminacliente(_id: string | undefined) {
@@ -83,17 +86,33 @@ export class ClientiComponent {
         },
         (error) => {
           console.error(
-            "Errore durante l'eliminazione del pacchetto salute",
+            "Errore durante l'eliminazione del cliente",
             error
           );
           this.errorOccurred = true;
           this.message =
-            "Si è verificato un errore durante l'eliminazione del pacchetto salute.";
+            "Si è verificato un errore durante l'eliminazione del cliente.";
         }
       );
     }
     this.visibleDialog = false;
   }
+
+  // Metodi di aggiornamento dell'array libri
+  private updateClienteArray(updatedCliente: Cliente) {
+    this.clienti = this.clienti.map(cliente => {
+      if (cliente._id === updatedCliente._id) {
+        return updatedCliente;
+      }
+      return cliente;
+    });
+  }
+
+  private addClienteToArray(newCliente: Cliente) {
+    this.clienti.push(newCliente);
+  }
+
+
 
   annulla() {
     this.visibleDialog = false;
@@ -104,7 +123,12 @@ export class ClientiComponent {
   }
 }
 
-
+// ngOnInit(): void {
+//   this.clientiService.get().subscribe((data) => {
+//     this.clienti = data;
+//     this.loading = false;
+//   });
+// }
 
 
 

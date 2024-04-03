@@ -19,6 +19,7 @@
         <p-button
               (click)="Finestramodale()"
               icon="pi pi-plus"
+              label="Aggiungi Libri"
               pRipple
               [style]="{
                 'background-color': '#00a79d',
@@ -36,7 +37,6 @@
         <th class="table-col" pSortableColumn="titolo">
           TITOLO<p-sortIcon field="titolo"></p-sortIcon>
         </th>
-
         <th class="table-col" pSortableColumn="autore">
           AUTORE
           <p-columnFilter
@@ -62,7 +62,7 @@
         <td class="table-col transp-bord">
           <div class="container">
             <p-button
-              (click)="viewOrEdit_PrepareFinestraModale(libro)"
+              (click)="PrepareFinestraModale(libro)"
               icon="pi pi-pencil"
               label=""
               pRipple
@@ -94,7 +94,6 @@
         <div class="field col">
           <label htmlFor="titolo">TITOLO</label>
           <input
-          class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             type="text"
             pInputText
             id="titolo"
@@ -123,7 +122,6 @@
         <div class="field col">
           <label htmlFor="autore">AUTORE</label>
           <input
-          class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             type="text"
             pInputText
             id="autore"
@@ -156,7 +154,6 @@
         <div class="field col">
           <label htmlFor="prezzo">PREZZO</label>
           <input
-          class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             type="text"
             pInputText
             id="prezzo"
@@ -185,7 +182,6 @@
         <div class="field col">
           <label htmlFor="categoria">CATEGORIA</label>
           <input
-          class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             type="text"
             pInputText
             id="categoria"
@@ -235,7 +231,7 @@
           type="button"
           label="Annulla"
           class="p-button-secondary mb-3 button-size"
-          (click)="annulla()"
+          (click)="annulla()"       
         ></button>
         <div *ngIf="errorOccurred" [ngClass]="errorOccurred ? 'ng-errors' : ''">
           {{ message }}

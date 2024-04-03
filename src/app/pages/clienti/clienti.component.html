@@ -1,66 +1,87 @@
 <div class="card">
-  <p-table
-    [value]="clienti"
-    [paginator]="true"
-    [rows]="5"
-    [showCurrentPageReport]="true"
-    [tableStyle]="{ 'min-width': '50rem' }"
-    currentPageReportTemplate="Mostra {first} to {last} of {totalRecords} {{
-      label
-    }}"
-    [rowsPerPageOptions]="[10, 25, 50]"
-  >
-    <ng-template pTemplate="header">
-      <tr>
-        <th style="width: 25%">NOME</th>
-        <th style="width: 25%">COGNOME</th>
-        <th style="width: 25%">EMAIL</th>
-        <th style="width: 25%">ETA</th>
-        <th style="width: 25%">TELEFONO</th>
-        <th style="width: 25%">MODIFICHE</th>
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-cliente>
-      <tr>
-        <td>{{ cliente.nome }}</td>
-        <td>{{ cliente.cognome }}</td>
-        <td>{{ cliente.email }}</td>
-        <td>{{ cliente.eta }}</td>
-        <td>{{ cliente.telefono }}</td>
-        <td>
-        <div class="container">
-          <p-button
-            (click)="MODIFICA(cliente)"
-            icon="pi pi-pencil"
-            label=""
-            pRipple
-            [style]="{
-              'background-color': '#00a79d',
-              'border-color': '#00a79d',
-              color: 'white'
-            }"
-          >
-          </p-button>
+    <p-table
+      class="table"
+      [value]="clienti"
+      [loading]="loading"
+      [paginator]="true"
+      [rows]="10"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="Mostra {first} su {last} di {totalRecords} {{
+        label
+      }}"
+      [rowsPerPageOptions]="[10, 25, 50]"
+      [tableStyle]="{ 'min-width': '50rem' }"
+    >
+      <ng-template pTemplate="caption">
+        <div class="flex align-items-center justify-content-between text-center">
+          <h3>CLIENTI</h3>
+          <div class="container">
+            <p-button
+              (click)="Finestramodale()"
+              icon="pi pi-plus"
+              label="Aggiungi Clienti"
+              pRipple
+              [style]="{
+                'background-color': '#00a79d',
+                'border-color': '#00a79d',
+                color: 'white'
+              }"
+            >
+            </p-button>
+          </div>
         </div>
-      </td>
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="paginatorleft">
-      <p-button
-        (click)="Finestramodale()"
-        icon="pi pi-plus"
-        label=""
-        pRipple
-        [style]="{
-          'background-color': '#00a79d',
-          'border-color': '#00a79d',
-          color: 'white'
-        }"
-      >
-      </p-button>
-    </ng-template>
-  </p-table>
-</div>
+      </ng-template>
+  
+      <ng-template pTemplate="header">
+        <tr>
+          <th class="table-col" pSortableColumn="nome">
+            NOME<p-sortIcon field="nome"></p-sortIcon>
+          </th>
+          <th class="table-col" pSortableColumn="cognome">
+            COGNOME
+            <p-columnFilter
+              type="text"
+              field="cognome"
+              display="menu"
+            ></p-columnFilter>
+            <p-sortIcon field="cognome"></p-sortIcon>
+          </th>
+          <th class="table-col">ETA</th>
+          <th class="table-col" pSortableColumn="email">
+            EMAIL<p-sortIcon field="email"></p-sortIcon>
+          </th>
+          
+          <th class="table-col">TELEFONO</th>
+          <th class="table-col">MODIFICHE</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-cliente>
+        <tr>
+          <td class="table-col">{{ cliente.nome }}</td>
+          <td class="table-col">{{ cliente.cognome}}</td>
+          <td class="table-col">{{ cliente.eta  }}</td>
+          <td class="table-col">{{cliente.email}}</td>
+          <td class="table-col">{{cliente.telefono}}</td>
+          <td class="table-col transp-bord">
+            <div class="container">
+              <p-button
+                (click)="PrepareFinestraModale(cliente)"
+                icon="pi pi-pencil"
+                label=""
+                pRipple
+                [style]="{
+                  'background-color': '#00a79d',
+                  'border-color': '#00a79d',
+                  color: 'white'
+                }"
+              >
+              </p-button>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div> 
 
 <p-dialog
   [header]="lbl_header"
@@ -128,7 +149,7 @@
           </div>
         </div>
       </div>
-
+      <br />
       <div class="formgrid grid">
         <div class="field col">
           <label htmlFor="eta">ETA</label>
@@ -182,15 +203,18 @@
           </div>
         </div>
       </div>
-
+      <br />
       <div class="formgrid grid">
         <div class="field col">
           <label htmlFor="telefono">TELEFONO</label>
-          <p-inputNumber
+          <input
+            type="text"
+            pInputText
             id="telefono"
-            name="telefono"
-            #telefono="ngModel"
             [(ngModel)]="clienteInTheForm.telefono"
+            #telefono="ngModel"
+            required
+            name="telefono"
             autofocus
             [ngClass]="{
               'ng-invalid ng-dirty':
@@ -209,24 +233,30 @@
           </div>
         </div>
       </div>
-
+      <br>
       <div class="flex-parent jc-center">
         <button
           pButton
           type="submit"
           [label]="lblBtnSubmit"
           (click)="salvacliente(clienteInTheForm._id)"
-          class="p-button-success mb-3 button-size"
+          class="p-button-success mb-3 mr-3 button-size"
         ></button>
         <button
           pButton
           type="button"
           label="Elimina"
           (click)="eliminacliente(clienteInTheForm._id)"
-          class="p-button-danger mb-3 button-size"
+          class="p-button-danger mb-3 mr-3 button-size"
           [disabled]="nascondiTastoElimina"
         ></button>
-
+        <button
+          pButton
+          type="button"
+          label="Annulla"
+          (click)="annulla()"
+          class="p-button-secondary mb-3 button-size"
+        ></button>
         <div *ngIf="errorOccurred" [ngClass]="errorOccurred ? 'ng-errors' : ''">
           {{ message }}
         </div>
