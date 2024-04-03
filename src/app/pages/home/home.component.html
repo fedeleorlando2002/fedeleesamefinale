@@ -61,13 +61,22 @@
             </div>
         </div>
     </div>
+    <br>
 
-
-    <div class="surface-ground px-4 py-5 md:px-6 lg:px-8">
-        <div class="grid grid-chart">
-          <div class="card chart-container" style="width: 50%; height: auto">
-            <h2>Richieste per tipologia di Visita</h2>
+    <div class="container flex justify-content-between">
+        <div class="card" style="width: 300px;">
             <p-chart type="line" [data]="data" [options]="options"></p-chart>
-          </div>
-        </div> 
-    </div> 
+        </div>
+    
+        <div class="card" style="width: 360px;">
+            <p-card header="Advanced Card" subheader="Card Subheader">
+                <ng-template pTemplate="footer">
+                    <p-button label="Save" icon="pi pi-check"></p-button>
+                    <p-button label="Cancel" icon="pi pi-times" styleClass="p-button-secondary"></p-button>
+                </ng-template>
+            </p-card>
+        </div>
+    </div>
+    
+    
+    

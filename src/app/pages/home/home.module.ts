@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { HomeComponent } from './home.component';
 import { RouterModule, Routes } from '@angular/router';
 import { ChartModule } from 'primeng/chart';
-    
+import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'primeng/button';    
 const routes: Routes = [
   {
     path: "",
@@ -16,7 +17,9 @@ const routes: Routes = [
   exports: [RouterModule],
   imports: [
     RouterModule.forChild(routes),
-    ChartModule
+    ChartModule,
+    CardModule,
+    ButtonModule 
   ],
 })
 export class HomeModule {}
