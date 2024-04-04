@@ -5,10 +5,13 @@ import { LibriService } from 'src/app/shared/service/libri.service';
 @Component({
   selector: 'app-libri',
   templateUrl: './libri.component.html',
-  styleUrls: ['./libri.component.css']
+  styleUrls: ['./libri.component.css'],
+
 })
 
 export class LibriComponent{
+
+  search: string = ''; // Initialize search variable
 
   libroInTheForm!: Libro;
   libri: Libro[] = [];
@@ -28,14 +31,27 @@ export class LibriComponent{
   ngOnInit(): void {
     this.loadLibri();
   }
-
   
+  // loadLibri() {
+  //   this.libriService.get().subscribe((data) => {
+  //     this.libri = data;
+  //     this.loading = false;
+  //   });
+  // }
+
   loadLibri() {
+    this.loading = true; // Imposta il flag di caricamento su true prima di effettuare la chiamata API
     this.libriService.get().subscribe((data) => {
-      this.libri = data;
-      this.loading = false;
+      // Filtra l'array dei libri in base alla stringa di ricerca
+      this.libri = data.filter(libro =>
+        libro.titolo.toLowerCase().includes(this.search.toLowerCase()) ||
+        libro.autore.toLowerCase().includes(this.search.toLowerCase()) ||
+        libro.categoria.toLowerCase().includes(this.search.toLowerCase())
+      );
+      this.loading = false; // Imposta il flag di caricamento su false dopo aver ottenuto i dati
     });
   }
+  
 
   Finestramodale() {
     this.lbl_header = "Inserisci un nuovo Libro";

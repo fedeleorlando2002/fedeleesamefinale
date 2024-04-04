@@ -3,7 +3,8 @@ import { HomeComponent } from './home.component';
 import { RouterModule, Routes } from '@angular/router';
 import { ChartModule } from 'primeng/chart';
 import { CardModule } from 'primeng/card';
-import { ButtonModule } from 'primeng/button';    
+import { ButtonModule } from 'primeng/button';  
+import { TableModule } from 'primeng/table';  
 const routes: Routes = [
   {
     path: "",
@@ -19,7 +20,8 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     ChartModule,
     CardModule,
-    ButtonModule 
+    ButtonModule,
+    TableModule
   ],
 })
 export class HomeModule {}

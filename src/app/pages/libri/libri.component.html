@@ -1,7 +1,7 @@
 <div class="card">
   <p-table
-    class="table"
     [value]="libri"
+    class="table"
     [loading]="loading"
     [paginator]="true"
     [rows]="10"
@@ -16,22 +16,33 @@
       <div class="flex align-items-center justify-content-between text-center">
         <h3>LIBRI</h3>
         <div class="container">
-        <p-button
-              (click)="Finestramodale()"
-              icon="pi pi-plus"
-              label="Aggiungi Libri"
-              pRipple
-              [style]="{
-                'background-color': '#00a79d',
-                'border-color': '#00a79d',
-                color: 'white'
-              }"
-            >
-            </p-button>
+          <span class="p-input-icon-left ml-auto">
+            <i class="pi pi-search"></i>
+            <input
+            pInputText
+            type="text"
+            name="search"
+            placeholder="Search keyword"
+            [(ngModel)]="search"
+            (input)="loadLibri()"
+          />
+          </span>
+          <p-button
+            (click)="Finestramodale()"
+            icon="pi pi-plus"
+            label="Aggiungi Libri"
+            pRipple
+            [style]="{
+              'background-color': '#00a79d',
+              'border-color': '#00a79d',
+              color: 'white'
+            }"
+          >
+          </p-button>
+        </div>
       </div>
-      </div> 
     </ng-template>
-    
+
     <ng-template pTemplate="header">
       <tr>
         <th class="table-col" pSortableColumn="titolo">
@@ -148,7 +159,7 @@
         </div>
       </div>
 
-      <br>
+      <br />
 
       <div class="formgrid grid">
         <div class="field col">
@@ -208,8 +219,8 @@
         </div>
       </div>
 
-      <br>
-      
+      <br />
+
       <div class="flex-parent jc-center">
         <button
           pButton
@@ -231,7 +242,7 @@
           type="button"
           label="Annulla"
           class="p-button-secondary mb-3 button-size"
-          (click)="annulla()"       
+          (click)="annulla()"
         ></button>
         <div *ngIf="errorOccurred" [ngClass]="errorOccurred ? 'ng-errors' : ''">
           {{ message }}
