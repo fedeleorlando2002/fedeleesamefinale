@@ -1,24 +1,24 @@
 <div class="card">
-    <p-table
-      class="table"
-      [value]="clienti"
-      [loading]="loading"
-      [paginator]="true"
-      [rows]="10"
-      [showCurrentPageReport]="true"
-      currentPageReportTemplate="Mostra {first} su {last} di {totalRecords} {{
-        label
-      }}"
-      [rowsPerPageOptions]="[10, 25, 50]"
-      [tableStyle]="{ 'min-width': '50rem' }"
-    >
-      <ng-template pTemplate="caption">
-        <div class="flex align-items-center justify-content-between text-center">
-          <h3>CLIENTI</h3>
-          <div class="container">
-            <span class="p-input-icon-left ml-auto">
-              <i class="pi pi-search"></i>
-              <input
+  <p-table
+    class="table"
+    [value]="clienti"
+    [loading]="loading"
+    [paginator]="true"
+    [rows]="10"
+    [showCurrentPageReport]="true"
+    currentPageReportTemplate="Mostra {first} su {last} di {totalRecords} {{
+      label
+    }}"
+    [rowsPerPageOptions]="[10, 25, 50]"
+    [tableStyle]="{ 'min-width': '50rem' }"
+  >
+    <ng-template pTemplate="caption">
+      <div class="flex align-items-center justify-content-between text-center">
+        <h3>CLIENTI</h3>
+        <div>
+          <span class="p-input-icon-left ml-auto">
+            <i class="pi pi-search"></i>
+            <input
               pInputText
               type="text"
               name="search"
@@ -26,11 +26,61 @@
               [(ngModel)]="search"
               (input)="loadClienti()"
             />
-            </span>
+          </span>
+        </div>
+        <div class="container">
+          <p-button
+            (click)="Finestramodale()"
+            icon="pi pi-plus"
+            label="Aggiungi Clienti"
+            pRipple
+            [style]="{
+              'background-color': '#00a79d',
+              'border-color': '#00a79d',
+              color: 'white'
+            }"
+          >
+          </p-button>
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+      <tr>
+        <th class="table-col" pSortableColumn="nome">
+          NOME<p-sortIcon field="nome"></p-sortIcon>
+        </th>
+        <th class="table-col" pSortableColumn="cognome">
+          COGNOME
+          <p-columnFilter
+            type="text"
+            field="cognome"
+            display="menu"
+          ></p-columnFilter>
+          <p-sortIcon field="cognome"></p-sortIcon>
+        </th>
+        <th class="table-col">ETA</th>
+        <th class="table-col" pSortableColumn="email">
+          EMAIL<p-sortIcon field="email"></p-sortIcon>
+        </th>
+
+        <th class="table-col">TELEFONO</th>
+        <th class="table-col">AZIONI</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-cliente>
+      <tr>
+        <td class="table-col">{{ cliente.nome }}</td>
+        <td class="table-col">{{ cliente.cognome }}</td>
+        <td class="table-col">{{ cliente.eta }}</td>
+        <td class="table-col">{{ cliente.email }}</td>
+        <td class="table-col">{{ cliente.telefono }}</td>
+        <td class="table-col transp-bord">
+          <div class="container">
             <p-button
-              (click)="Finestramodale()"
-              icon="pi pi-plus"
-              label="Aggiungi Clienti"
+              (click)="PrepareFinestraModale(cliente)"
+              icon="pi pi-pencil"
+              label=""
               pRipple
               [style]="{
                 'background-color': '#00a79d',
@@ -40,59 +90,11 @@
             >
             </p-button>
           </div>
-        </div>
-      </ng-template>
-  
-      <ng-template pTemplate="header">
-        <tr>
-          <th class="table-col" pSortableColumn="nome">
-            NOME<p-sortIcon field="nome"></p-sortIcon>
-          </th>
-          <th class="table-col" pSortableColumn="cognome">
-            COGNOME
-            <p-columnFilter
-              type="text"
-              field="cognome"
-              display="menu"
-            ></p-columnFilter>
-            <p-sortIcon field="cognome"></p-sortIcon>
-          </th>
-          <th class="table-col">ETA</th>
-          <th class="table-col" pSortableColumn="email">
-            EMAIL<p-sortIcon field="email"></p-sortIcon>
-          </th>
-          
-          <th class="table-col">TELEFONO</th>
-          <th class="table-col">AZIONI</th>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-cliente>
-        <tr>
-          <td class="table-col">{{ cliente.nome }}</td>
-          <td class="table-col">{{ cliente.cognome}}</td>
-          <td class="table-col">{{ cliente.eta  }}</td>
-          <td class="table-col">{{cliente.email}}</td>
-          <td class="table-col">{{cliente.telefono}}</td>
-          <td class="table-col transp-bord">
-            <div class="container">
-              <p-button
-                (click)="PrepareFinestraModale(cliente)"
-                icon="pi pi-pencil"
-                label=""
-                pRipple
-                [style]="{
-                  'background-color': '#00a79d',
-                  'border-color': '#00a79d',
-                  color: 'white'
-                }"
-              >
-              </p-button>
-            </div>
-          </td>
-        </tr>
-      </ng-template>
-    </p-table>
-  </div> 
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
 
 <p-dialog
   [header]="lbl_header"
@@ -244,7 +246,7 @@
           </div>
         </div>
       </div>
-      <br>
+      <br />
       <div class="flex-parent jc-center">
         <button
           pButton

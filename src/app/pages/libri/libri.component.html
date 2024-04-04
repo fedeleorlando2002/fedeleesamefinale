@@ -15,18 +15,20 @@
     <ng-template pTemplate="caption">
       <div class="flex align-items-center justify-content-between text-center">
         <h3>LIBRI</h3>
-        <div class="container">
+        <div>
           <span class="p-input-icon-left ml-auto">
             <i class="pi pi-search"></i>
             <input
-            pInputText
-            type="text"
-            name="search"
-            placeholder="Search keyword"
-            [(ngModel)]="search"
-            (input)="loadLibri()"
-          />
+              pInputText
+              type="text"
+              name="search"
+              placeholder="Search keyword"
+              [(ngModel)]="search"
+              (input)="loadLibri()"
+            />
           </span>
+        </div>
+        <div class="container">
           <p-button
             (click)="Finestramodale()"
             icon="pi pi-plus"
