@@ -26,17 +26,10 @@ export class HomeComponent implements OnInit {
     private clientiService: ClientiService,
   ) { }
 
-
-  ngOnInit(): void {
-    const queryParams = {
-      sort: "desc",
-      limit: 5,
-    };
-
-    this.clientiService.get().subscribe((data) => {
-      this.clienti = data;
-      this.loading = false;
-    });
+    ngOnInit(): void {
+      this.clientiService.get().subscribe((data) => {
+        this.clienti = data;
+        this.loading = false;
 
     // Aggrega i clienti in base alle fasce di età
     const over65 = this.clienti.filter(cliente => cliente.eta > 65).length;
@@ -53,13 +46,11 @@ export class HomeComponent implements OnInit {
         }
       ]
     };
-   
+  });
 
     this.getLibriCount();
     this.getClientiCount();
   }
-
-
 
   getLibriCount() {
     this.libriService.get().subscribe((libri) => {
@@ -73,3 +64,16 @@ export class HomeComponent implements OnInit {
     });
   }
 }
+
+
+
+  // ngOnInit(): void {
+  //   const queryParams = {
+  //     sort: "desc",
+  //     limit: 5,
+  //   };
+
+  //   this.clientiService.get().subscribe((data) => {
+  //     this.clienti = data;
+  //     this.loading = false;
+  //   });
