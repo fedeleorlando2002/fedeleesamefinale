@@ -27,6 +27,7 @@ export class ClientiComponent {
   constructor(private clientiService: ClientiService) {
   }
 
+  
   ngOnInit(): void {
     this.loadClienti();
   }
@@ -45,14 +46,6 @@ export class ClientiComponent {
     });
   }
 
-
-  // loadClienti() {
-  //   this.clientiService.get().subscribe((data) => {
-  //     this.clienti = data;
-  //     this.loading = false;
-  //   });
-  // }
-
   Finestramodale() {
     this.lbl_header = "Inserisci un nuovo Cliente";
     this.visibleDialog = true; //questo serve per aprire il p-dialog
@@ -63,7 +56,7 @@ export class ClientiComponent {
   }
 
   PrepareFinestraModale(cliente: Cliente) {
-    this.lbl_header = `Modifica/Elimina Cliente: ${cliente.nome}${cliente.cognome}`;
+    this.lbl_header = `Modifica/Elimina Cliente: ${cliente.nome} ${cliente.cognome}`;
     this.visibleDialog = true;
     this.clienteInTheForm = cliente;
     this.editMode = true;
@@ -128,8 +121,6 @@ export class ClientiComponent {
     this.clienti.push(newCliente);
   }
 
-
-
   annulla() {
     this.visibleDialog = false;
     this.clientiService.get().subscribe((data) => {
@@ -149,6 +140,12 @@ export class ClientiComponent {
 
 
 
+  // loadClienti() {
+  //   this.clientiService.get().subscribe((data) => {
+  //     this.clienti = data;
+  //     this.loading = false;
+  //   });
+  // }
 
 
 
