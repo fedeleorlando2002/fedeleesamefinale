@@ -38,35 +38,27 @@ export class HomeComponent implements OnInit {
       this.loading = false;
     });
 
-
-    const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = documentStyle.getPropertyValue('--text-color');
+    // Aggrega i clienti in base alle fasce di età
+    const over65 = this.clienti.filter(cliente => cliente.eta > 65).length;
+    const between18And64 = this.clienti.filter(cliente => cliente.eta >= 18 && cliente.eta <= 64).length;
+    const under18 = this.clienti.filter(cliente => cliente.eta < 18).length;
 
     this.data = {
-      labels: ['A', 'B', 'C'],
+      labels: ['Over 65', '18-64', 'Under 18'],
       datasets: [
         {
-          data: [540, 325, 702],
-          backgroundColor: [documentStyle.getPropertyValue('--blue-500'), documentStyle.getPropertyValue('--yellow-500'), documentStyle.getPropertyValue('--green-500')],
-          hoverBackgroundColor: [documentStyle.getPropertyValue('--blue-400'), documentStyle.getPropertyValue('--yellow-400'), documentStyle.getPropertyValue('--green-400')]
+          data: [over65, between18And64, under18],
+          backgroundColor: ['blue', 'red', 'yellow'],
+          hoverBackgroundColor: ['blue', 'red', 'yellow']
         }
       ]
     };
-
-    this.options = {
-      plugins: {
-        legend: {
-          labels: {
-            usePointStyle: true,
-            color: textColor
-          }
-        }
-      }
-    };
+   
 
     this.getLibriCount();
     this.getClientiCount();
   }
+
 
 
   getLibriCount() {

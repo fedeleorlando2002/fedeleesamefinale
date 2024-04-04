@@ -16,6 +16,17 @@
         <div class="flex align-items-center justify-content-between text-center">
           <h3>CLIENTI</h3>
           <div class="container">
+            <span class="p-input-icon-left ml-auto">
+              <i class="pi pi-search"></i>
+              <input
+              pInputText
+              type="text"
+              name="search"
+              placeholder="Search keyword"
+              [(ngModel)]="search"
+              (input)="loadClienti()"
+            />
+            </span>
             <p-button
               (click)="Finestramodale()"
               icon="pi pi-plus"

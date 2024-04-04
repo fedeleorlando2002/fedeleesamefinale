@@ -10,6 +10,8 @@ import { ClientiService } from 'src/app/shared/service/clienti.service';
 
 export class ClientiComponent {
 
+  search: string = ''; // Inizializza la ricerca
+
   clienteInTheForm!: Cliente;
   clienti: Cliente[] = [];
   lbl_header = "";
@@ -29,13 +31,27 @@ export class ClientiComponent {
     this.loadClienti();
   }
 
-
   loadClienti() {
+    this.loading = true; // Imposta il flag di caricamento su true prima di effettuare la chiamata API
     this.clientiService.get().subscribe((data) => {
-      this.clienti = data;
-      this.loading = false;
+      // Filtra l'array dei libri in base alla stringa di ricerca
+      this.clienti = data.filter(clienti =>
+        clienti.nome.toLowerCase().includes(this.search.toLowerCase()) ||
+        clienti.cognome.toLowerCase().includes(this.search.toLowerCase()) ||
+        clienti.email.toLowerCase().includes(this.search.toLowerCase()) ||
+        clienti.telefono.toLowerCase().includes(this.search.toLowerCase()) 
+      );
+      this.loading = false; // Imposta il flag di caricamento su false dopo aver ottenuto i dati
     });
   }
+
+
+  // loadClienti() {
+  //   this.clientiService.get().subscribe((data) => {
+  //     this.clienti = data;
+  //     this.loading = false;
+  //   });
+  // }
 
   Finestramodale() {
     this.lbl_header = "Inserisci un nuovo Cliente";

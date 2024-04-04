@@ -11,7 +11,7 @@ import { LibriService } from 'src/app/shared/service/libri.service';
 
 export class LibriComponent{
 
-  search: string = ''; // Initialize search variable
+  search: string = ''; // Inizializza la ricerca
 
   libroInTheForm!: Libro;
   libri: Libro[] = [];
@@ -46,7 +46,7 @@ export class LibriComponent{
       this.libri = data.filter(libro =>
         libro.titolo.toLowerCase().includes(this.search.toLowerCase()) ||
         libro.autore.toLowerCase().includes(this.search.toLowerCase()) ||
-        libro.categoria.toLowerCase().includes(this.search.toLowerCase())
+        libro.categoria.toLowerCase().includes(this.search.toLowerCase()) 
       );
       this.loading = false; // Imposta il flag di caricamento su false dopo aver ottenuto i dati
     });
