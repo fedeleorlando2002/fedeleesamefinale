@@ -12,6 +12,8 @@ import { InputTextareaModule } from "primeng/inputtextarea";
 import { InputNumberModule } from "primeng/inputnumber";
 import { CommonModule } from '@angular/common';
 import { CalendarModule } from 'primeng/calendar';
+import { InputMaskModule } from 'primeng/inputmask';
+
 const routes: Routes = [
   {
     path: "",
@@ -36,7 +38,8 @@ const routes: Routes = [
     InputTextModule,
     InputNumberModule,
     InputTextareaModule,   
-    CalendarModule
+    CalendarModule,
+    InputMaskModule
   ],
 
 })
