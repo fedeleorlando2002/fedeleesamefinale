@@ -3,6 +3,6 @@ export interface Cliente{
     nome: string;
     cognome: string;
     email : string;
-    eta: number;
+    eta: string;
     telefono: string;
   }

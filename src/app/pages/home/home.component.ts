@@ -37,18 +37,34 @@ export class HomeComponent implements OnInit {
       // Seleziona solo gli ultimi 5 clienti
       this.ultimiClienti = this.clienti.slice(-5);
 
-      // Aggrega i clienti in base alle fasce di età
-      const over65 = this.clienti.filter(cliente => cliente.eta > 65).length;
-      const between18And64 = this.clienti.filter(cliente => cliente.eta >= 18 && cliente.eta <= 64).length;
-      const under18 = this.clienti.filter(cliente => cliente.eta < 18).length;
+      const currentDate = new Date();
+      const currentYear = currentDate.getFullYear();
+
+      let Natiprima1946 = 0;
+      let Natitra1946e1975 = 0;
+      let Natitra1975e2000 = 0;
+      let Natidopo2000 = 0;
+
+      for (let cliente of this.clienti) {
+        const birthYear = new Date(cliente.eta).getFullYear();
+        if (birthYear < 1946) {
+          Natiprima1946++;
+        } else if (birthYear >= 1946 && birthYear <= 1975) {
+          Natitra1946e1975++;
+        } else if (birthYear >= 1975 && birthYear <= 2000) {
+          Natitra1975e2000++;
+        } else {
+          Natidopo2000++;
+        }
+      }
 
       this.data = {
-        labels: ['Over 65', '18-64', 'Under 18'],
+        labels: ['Nati prima del 1946', 'Nati tra il 1946 e il 1975', 'Nati tra il 1975 e il 2000', 'Nati dopo il 2000'],
         datasets: [
           {
-            data: [over65, between18And64, under18],
-            backgroundColor: ['blue', 'red', 'yellow'],
-            hoverBackgroundColor: ['blue', 'red', 'yellow']
+            data: [Natiprima1946, Natitra1946e1975, Natitra1975e2000, Natidopo2000],
+            backgroundColor: ['blue', 'red', 'yellow', 'purple'],
+            hoverBackgroundColor: ['blue', 'red', 'yellow', 'purple']
           }
         ]
       };

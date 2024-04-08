@@ -10,6 +10,8 @@ import { ClientiService } from 'src/app/shared/service/clienti.service';
 
 export class ClientiComponent {
 
+  date: Date | undefined;
+
   search: string = ''; // Inizializza la ricerca
 
   clienteInTheForm!: Cliente;
@@ -40,7 +42,8 @@ export class ClientiComponent {
         clienti.nome.toLowerCase().includes(this.search.toLowerCase()) ||
         clienti.cognome.toLowerCase().includes(this.search.toLowerCase()) ||
         clienti.email.toLowerCase().includes(this.search.toLowerCase()) ||
-        clienti.telefono.toLowerCase().includes(this.search.toLowerCase()) 
+        clienti.telefono.toLowerCase().includes(this.search.toLowerCase()) ||
+        clienti.eta.toLowerCase().includes(this.search.toLowerCase())
       );
       this.loading = false; // Imposta il flag di caricamento su false dopo aver ottenuto i dati
     });

@@ -11,6 +11,8 @@ import { AppComponent } from './app.component';
 import { MyMenuBarModule } from './pages/menubar/menubar.module';
 
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +25,6 @@ import { MyMenuBarModule } from './pages/menubar/menubar.module';
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-  
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent],

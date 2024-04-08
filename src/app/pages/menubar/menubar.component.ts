@@ -18,6 +18,10 @@ export class MenubarComponent {
     {
       label: 'Libri',
       routerLink: '/libri',
+    },
+    {
+      label: 'Login',
+      routerLink: '/login',
     }
   ];
 }

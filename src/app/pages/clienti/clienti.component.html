@@ -72,7 +72,7 @@
       <tr>
         <td class="table-col">{{ cliente.nome }}</td>
         <td class="table-col">{{ cliente.cognome }}</td>
-        <td class="table-col">{{ cliente.eta }}</td>
+        <td class="table-col">{{ cliente.eta | date : "dd/MM/yyyy" }}</td>
         <td class="table-col">{{ cliente.email }}</td>
         <td class="table-col">{{ cliente.telefono }}</td>
         <td class="table-col transp-bord">
@@ -166,7 +166,9 @@
       <div class="formgrid grid">
         <div class="field col">
           <label htmlFor="eta">ETA</label>
-          <p-inputNumber
+          <input
+            type="date"
+            pInputText
             id="eta"
             name="eta"
             #eta="ngModel"
