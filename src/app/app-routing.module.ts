@@ -28,13 +28,7 @@ const routes: Routes = [
         (m) => m.ClientiModule
       ),
   },
-  {
-    path: "login",
-    loadChildren: () =>
-      import("../app/pages/login/login.module").then(
-        (m) => m.LoginModule
-      ),
-  },
+
 ]
 
 @NgModule({

@@ -52,17 +52,14 @@
         </th>
         <th class="table-col" pSortableColumn="autore">
           AUTORE
-          <p-columnFilter
-            type="text"
-            field="autore"
-            display="menu"
-          ></p-columnFilter>
           <p-sortIcon field="autore"></p-sortIcon>
         </th>
         <th class="table-col" pSortableColumn="prezzo">
           PREZZO <p-sortIcon field="prezzo"></p-sortIcon>
         </th>
-        <th class="table-col">CATEGORIA</th>
+        <th class="table-col" pSortableColumn="categoria">
+          CATEGORIA <p-sortIcon field="categoria"></p-sortIcon>
+        </th>
         <th class="table-col">AZIONI</th>
       </tr>
     </ng-template>

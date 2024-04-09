@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-
+import { ButtonModule } from "primeng/button";
 // pagine
 import { AppComponent } from './app.component';
 import { MyMenuBarModule } from './pages/menubar/menubar.module';
@@ -25,6 +25,7 @@ import { MyMenuBarModule } from './pages/menubar/menubar.module';
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    ButtonModule
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent],
