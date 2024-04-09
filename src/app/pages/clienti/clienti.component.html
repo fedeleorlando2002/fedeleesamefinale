@@ -35,8 +35,8 @@
             label="Aggiungi Clienti"
             pRipple
             [style]="{
-              'background-color': '#00a79d',
-              'border-color': '#00a79d',
+              'background-color': 'blue',
+              'border-color': 'blue',
               color: 'white'
             }"
           >
@@ -48,23 +48,25 @@
     <ng-template pTemplate="header">
       <tr>
         <th class="table-col" pSortableColumn="nome">
-          NOME<p-sortIcon field="nome"></p-sortIcon>
+          NOME
+          <p-sortIcon field="nome"></p-sortIcon>
         </th>
         <th class="table-col" pSortableColumn="cognome">
           COGNOME
-          <p-columnFilter
-            type="text"
-            field="cognome"
-            display="menu"
-          ></p-columnFilter>
           <p-sortIcon field="cognome"></p-sortIcon>
         </th>
-        <th class="table-col">ETA</th>
-        <th class="table-col" pSortableColumn="email">
-          EMAIL<p-sortIcon field="email"></p-sortIcon>
+        <th class="table-col" pSortableColumn="eta">
+          ETA
+          <p-sortIcon field="eta"></p-sortIcon>
         </th>
-
-        <th class="table-col">TELEFONO</th>
+        <th class="table-col" pSortableColumn="email">
+          EMAIL
+          <p-sortIcon field="email"></p-sortIcon>
+        </th>
+        <th class="table-col" pSortableColumn="telefono">
+          TELEFONO
+          <p-sortIcon field="telefono"></p-sortIcon>
+        </th>
         <th class="table-col">AZIONI</th>
       </tr>
     </ng-template>
@@ -83,8 +85,8 @@
               label=""
               pRipple
               [style]="{
-                'background-color': '#00a79d',
-                'border-color': '#00a79d',
+                'background-color': 'blue',
+                'border-color': 'blue',
                 color: 'white'
               }"
             >
@@ -212,7 +214,7 @@
           >
             <p-message
               severity="error"
-              text="email è obbligatoria"
+              text="email @ è obbligatoria"
               [@errorState]="email?.errors?.['required'] ? 'visible' : 'hidden'"
             ></p-message>
           </div>
@@ -225,8 +227,6 @@
           <input
             type="text"
             pInputText
-            mask="9999999999"
-            placeholder="9999999999"
             id="telefono"
             [(ngModel)]="clienteInTheForm.telefono"
             #telefono="ngModel"
@@ -281,89 +281,3 @@
     </form>
   </ng-template>
 </p-dialog>
-
-<!-- <div class="card">
-    <p-table
-      class="table"
-      [value]="clienti"
-      [loading]="loading"
-      [paginator]="true"
-      [rows]="10"
-      [showCurrentPageReport]="true"
-      currentPageReportTemplate="Mostra {first} su {last} di {totalRecords} {{
-        label
-      }}"
-      [rowsPerPageOptions]="[10, 25, 50]"
-      [tableStyle]="{ 'min-width': '50rem' }"
-    >
-      <ng-template pTemplate="caption">
-        <div class="flex align-items-center justify-content-between text-center">
-          <h3>CLIENTI</h3>
-          <div class="container">
-            <p-button
-              (click)="Finestramodale()"
-              icon="pi pi-plus"
-              label="Aggiungi Clienti"
-              pRipple
-              [style]="{
-                'background-color': '#00a79d',
-                'border-color': '#00a79d',
-                color: 'white'
-              }"
-            >
-            </p-button>
-          </div>
-        </div>
-      </ng-template>
-  
-      <ng-template pTemplate="header">
-        <tr>
-          <th class="table-col" pSortableColumn="nome">
-            NOME<p-sortIcon field="nome"></p-sortIcon>
-          </th>
-  
-          <th class="table-col" pSortableColumn="autore">
-            COGNOME
-            <p-columnFilter
-              type="text"
-              field="cognome"
-              display="menu"
-            ></p-columnFilter>
-            <p-sortIcon field="cognome"></p-sortIcon>
-          </th>
-          <th class="table-col">ETA</th>
-          <th class="table-col" pSortableColumn="prezzo">
-            EMAIL<p-sortIcon field="prezzo"></p-sortIcon>
-          </th>
-          
-          <th class="table-col">TELEFONO</th>
-          <th class="table-col">MODIFICHE</th>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-cliente>
-        <tr>
-          <td class="table-col">{{ cliente.nome }}</td>
-          <td class="table-col">{{ cliente.cognome}}</td>
-          <td class="table-col">{{ cliente.eta  }}</td>
-          <td class="table-col">{{cliente.email}}</td>
-          <td class="table-col">{{cliente.telefono}}</td>
-          <td class="table-col transp-bord">
-            <div class="container">
-              <p-button
-                (click)="MODIFICA(cliente)"
-                icon="pi pi-pencil"
-                label=""
-                pRipple
-                [style]="{
-                  'background-color': '#00a79d',
-                  'border-color': '#00a79d',
-                  color: 'white'
-                }"
-              >
-              </p-button>
-            </div>
-          </td>
-        </tr>
-      </ng-template>
-    </p-table>
-  </div>  -->

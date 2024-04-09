@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Cliente } from 'src/app/shared/interfaces/cliente.model';
 import { ClientiService } from 'src/app/shared/service/clienti.service';
 
@@ -8,11 +8,11 @@ import { ClientiService } from 'src/app/shared/service/clienti.service';
   styleUrls: ['./clienti.component.css']
 })
 
-export class ClientiComponent {
+export class ClientiComponent implements OnInit{
 
   date: Date | undefined;
 
-  search: string = ''; // Inizializza la ricerca
+  search: any = ''; // Inizializza la ricerca
 
   clienteInTheForm!: Cliente;
   clienti: Cliente[] = [];
@@ -29,7 +29,6 @@ export class ClientiComponent {
   constructor(private clientiService: ClientiService) {
   }
 
-  
   ngOnInit(): void {
     this.loadClienti();
   }
@@ -149,55 +148,3 @@ export class ClientiComponent {
   //     this.loading = false;
   //   });
   // }
-
-
-
-
-
-
-
-
-
-// <!-- <p-table
-//     [value]="libri"
-//     [paginator]="true"
-//     [rows]="5"
-//     [showCurrentPageReport]="true"
-//     [tableStyle]="{ 'min-width': '50rem' }"
-//     currentPageReportTemplate="Mostra {first} su {last} di {totalRecords} {{
-//       label
-//     }}"
-//     [rowsPerPageOptions]="[10, 25, 50]"
-// >
-//     <ng-template pTemplate="header">
-//         <tr>
-//             <th style="width:25%">TITOLO</th>
-//             <th style="width:25%">AUTORE</th>
-//             <th style="width:25%">PREZZO</th>
-//             <th style="width:25%">CATEGORIA</th>
-//             <th style="width:25%">AZIONI</th>
-//         </tr>
-//     </ng-template>
-//     <ng-template pTemplate="body" let-libro>
-//         <tr>
-//             <td>{{ libro.titolo }}</td>
-//             <td>{{ libro.autore}}</td>
-//             <td>{{ libro.prezzo | currency: 'EUR'}}</td>
-//             <td>{{ libro.categoria }}</td>
-//             <td class="table-col transp-bord">
-//                 <p-button
-//                   (click)="viewOrEdit_PrepareFinestraModale(libro)"
-//                   icon="pi pi-pencil"
-//                   label=""
-//                   pRipple
-//                   [style]="{
-//                     'background-color': '#00a79d',
-//                     'border-color': '#00a79d',
-//                     color: 'white'
-//                   }"
-//                 >
-//               </p-button>
-//               </td>
-//             </tr>
-//     </ng-template>
-// </p-table> -->
