@@ -13,9 +13,11 @@ import { MyMenuBarModule } from './pages/menubar/menubar.module';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
+
   ],
   imports: [
     BrowserModule,
