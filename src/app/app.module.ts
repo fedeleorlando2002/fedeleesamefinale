@@ -6,24 +6,20 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from "primeng/button";
+
 // pagine
 import { AppComponent } from './app.component';
-import { MyMenuBarModule } from './pages/menubar/menubar.module';
-
-
-
-
+import { LoginComponent } from './pages/login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     CommonModule,
-    MyMenuBarModule,
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,

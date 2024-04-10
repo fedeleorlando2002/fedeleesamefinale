@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
+import { LoginComponent } from './pages/login/login.component';
+import { MenubarComponent } from './pages/menubar/menubar.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/home',
-    pathMatch: 'full',
+    component: LoginComponent, // Imposta il componente di login come componente da visualizzare sulla rotta principale
   },
   {
     path: "home",
@@ -29,7 +29,6 @@ const routes: Routes = [
         (m) => m.ClientiModule
       ),
   },
-
 ]
 
 @NgModule({
