@@ -108,7 +108,7 @@
             type="text"
             pInputText
             id="titolo"
-            [(ngModel)]="libroInTheForm.titolo"
+            [(ngModel)]="libroForm.titolo"
             required
             name="titolo"
             #titolo="ngModel"
@@ -136,7 +136,7 @@
             type="text"
             pInputText
             id="autore"
-            [(ngModel)]="libroInTheForm.autore"
+            [(ngModel)]="libroForm.autore"
             required
             name="autore"
             #autore="ngModel"
@@ -168,7 +168,7 @@
             type="text"
             pInputText
             id="prezzo"
-            [(ngModel)]="libroInTheForm.prezzo"
+            [(ngModel)]="libroForm.prezzo"
             required
             #prezzo="ngModel"
             name="prezzo"
@@ -196,7 +196,7 @@
             type="text"
             pInputText
             id="categoria"
-            [(ngModel)]="libroInTheForm.categoria"
+            [(ngModel)]="libroForm.categoria"
             #categoria="ngModel"
             required
             name="categoria"
@@ -226,14 +226,14 @@
           pButton
           type="submit"
           [label]="lblBtnSubmit"
-          (click)="salvalibro(libroInTheForm._id)"
+          (click)="salvalibro(libroForm._id)"
           class="p-button-success mb-3 mr-3 button-size"
         ></button>
         <button
           pButton
           type="button"
           label="Elimina"
-          (click)="eliminalibro(libroInTheForm._id)"
+          (click)="eliminalibro(libroForm._id)"
           class="p-button-danger mb-3 mr-3 button-size"
           [disabled]="nascondiTastoElimina"
         ></button>

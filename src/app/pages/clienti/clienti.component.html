@@ -116,7 +116,7 @@
             type="text"
             pInputText
             id="nome"
-            [(ngModel)]="clienteInTheForm.nome"
+            [(ngModel)]="clienteForm.nome"
             #nome="ngModel"
             required
             name="nome"
@@ -143,7 +143,7 @@
             type="text"
             pInputText
             id="cognome"
-            [(ngModel)]="clienteInTheForm.cognome"
+            [(ngModel)]="clienteForm.cognome"
             #cognome="ngModel"
             required
             name="cognome"
@@ -175,7 +175,7 @@
             id="eta"
             name="eta"
             #eta="ngModel"
-            [(ngModel)]="clienteInTheForm.eta"
+            [(ngModel)]="clienteForm.eta"
             autofocus
             [ngClass]="{
               'ng-invalid ng-dirty': (eta.dirty || eta.touched) && eta.errors
@@ -199,7 +199,7 @@
             type="text"
             pInputText
             id="email"
-            [(ngModel)]="clienteInTheForm.email"
+            [(ngModel)]="clienteForm.email"
             #email="ngModel"
             required
             name="email"
@@ -229,7 +229,7 @@
             type="text"
             pInputText
             id="telefono"
-            [(ngModel)]="clienteInTheForm.telefono"
+            [(ngModel)]="clienteForm.telefono"
             #telefono="ngModel"
             required
             name="telefono"
@@ -257,14 +257,14 @@
           pButton
           type="submit"
           [label]="lblBtnSubmit"
-          (click)="salvacliente(clienteInTheForm._id)"
+          (click)="salvacliente(clienteForm._id)"
           class="p-button-success mb-3 mr-3 button-size"
         ></button>
         <button
           pButton
           type="button"
           label="Elimina"
-          (click)="eliminacliente(clienteInTheForm._id)"
+          (click)="eliminacliente(clienteForm._id)"
           class="p-button-danger mb-3 mr-3 button-size"
           [disabled]="nascondiTastoElimina"
         ></button>

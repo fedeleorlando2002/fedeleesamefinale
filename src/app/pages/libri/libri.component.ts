@@ -13,7 +13,7 @@ export class LibriComponent{
 
   search: string = ''; // Inizializza la ricerca
 
-  libroInTheForm!: Libro;
+  libroForm!: Libro;
   libri: Libro[] = [];
   lbl_header = "";
   label = "libri";
@@ -31,13 +31,6 @@ export class LibriComponent{
   ngOnInit(): void {
     this.loadLibri();
   }
-  
-  // loadLibri() {
-  //   this.libriService.get().subscribe((data) => {
-  //     this.libri = data;
-  //     this.loading = false;
-  //   });
-  // }
 
   loadLibri() {
     this.loading = true; // Imposta il flag di caricamento su true prima di effettuare la chiamata API
@@ -52,12 +45,11 @@ export class LibriComponent{
     });
   }
   
-
   Finestramodale() {
     this.lbl_header = "Inserisci un nuovo Libro";
     this.visibleDialog = true; 
     this.editMode = false; 
-    this.libroInTheForm = {} as Libro; 
+    this.libroForm = {} as Libro; 
     this.lblBtnSubmit = "Salva"; 
     this.nascondiTastoElimina = true;
   }
@@ -65,23 +57,22 @@ export class LibriComponent{
   PrepareFinestraModale(libro: Libro) {
     this.lbl_header = `Modifica/Elimina Libro: ${libro.titolo}`;
     this.visibleDialog = true;
-    this.libroInTheForm = libro;
+    this.libroForm = libro;
     this.editMode = true;
     this.lblBtnSubmit = "Aggiorna"; 
     this.nascondiTastoElimina = false;
   }
 
-
   salvalibro(_id: string | undefined) {
     if (_id && this.editMode) {
-      let libro: Libro = { ...this.libroInTheForm};
+      let libro: Libro = { ...this.libroForm};
       delete libro._id;
       this.libriService.put(_id, libro).subscribe((data: Libro) => {
         this.updateLibroArray(data);
         this.visibleDialog = false;
       });
     } else {
-      this.libriService.post(this.libroInTheForm).subscribe((data: Libro) => {
+      this.libriService.post(this.libroForm).subscribe((data: Libro) => {
         this.addLibroToArray(data);
         this.visibleDialog = false;
       });
@@ -138,16 +129,12 @@ export class LibriComponent{
 }
 
 
-
-
   // ngOnInit(): void {
   //   this.libriService.get().subscribe((data) => {
   //     this.libri = data;
   //     this.loading = false;
   //   });
   // }
-
-
 
 
 // salvalibro(_id: string | undefined) {

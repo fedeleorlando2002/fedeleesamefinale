@@ -14,7 +14,7 @@ export class ClientiComponent implements OnInit{
 
   search: any = ''; // Inizializza la ricerca
 
-  clienteInTheForm!: Cliente;
+  clienteForm!: Cliente;
   clienti: Cliente[] = [];
   lbl_header = "";
   label = "clienti";
@@ -52,7 +52,7 @@ export class ClientiComponent implements OnInit{
     this.lbl_header = "Inserisci un nuovo Cliente";
     this.visibleDialog = true; //questo serve per aprire il p-dialog
     this.editMode = false; //questo serve per capire se si sta modificando un cliente o se si sta inserendo un nuovo cliente
-    this.clienteInTheForm = {} as Cliente; //questo serve per inizializzare il nuovo cliente
+    this.clienteForm = {} as Cliente; //questo serve per inizializzare il nuovo cliente
     this.lblBtnSubmit = "Salva"; //questo serve per cambiare il testo del bottone
     this.nascondiTastoElimina = true;
   }
@@ -60,7 +60,7 @@ export class ClientiComponent implements OnInit{
   PrepareFinestraModale(cliente: Cliente) {
     this.lbl_header = `Modifica/Elimina Cliente: ${cliente.nome} ${cliente.cognome}`;
     this.visibleDialog = true;
-    this.clienteInTheForm = cliente;
+    this.clienteForm = cliente;
     this.editMode = true;
     this.lblBtnSubmit = "Aggiorna"; //questo serve per cambiare il testo del bottone
     this.nascondiTastoElimina = false;
@@ -69,14 +69,14 @@ export class ClientiComponent implements OnInit{
 
   salvacliente(_id: string | undefined) {
     if (_id && this.editMode) {
-      let cliente: Cliente = { ...this.clienteInTheForm };
+      let cliente: Cliente = { ...this.clienteForm };
       delete cliente._id
       this.clientiService.put(_id, cliente).subscribe((data: Cliente) => {
         this.updateClienteArray(data);
         this.visibleDialog = false;
       });
     } else {
-      this.clientiService.post(this.clienteInTheForm).subscribe((data: Cliente) => {
+      this.clientiService.post(this.clienteForm).subscribe((data: Cliente) => {
         this.addClienteToArray(data);
         this.visibleDialog = false;
       });
