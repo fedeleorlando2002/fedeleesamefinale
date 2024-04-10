@@ -9,7 +9,7 @@ import { LibriService } from 'src/app/shared/service/libri.service';
 
 })
 
-export class LibriComponent{
+export class LibriComponent {
 
   search: string = ''; // Inizializza la ricerca
 
@@ -29,6 +29,10 @@ export class LibriComponent{
   }
 
   ngOnInit(): void {
+    this.libriService.get().subscribe((data) => {
+      this.libri = data;
+      this.loading = false;
+    });
     this.loadLibri();
   }
 
@@ -39,18 +43,18 @@ export class LibriComponent{
       this.libri = data.filter(libro =>
         libro.titolo.toLowerCase().includes(this.search.toLowerCase()) ||
         libro.autore.toLowerCase().includes(this.search.toLowerCase()) ||
-        libro.categoria.toLowerCase().includes(this.search.toLowerCase()) 
+        libro.categoria.toLowerCase().includes(this.search.toLowerCase())
       );
       this.loading = false; // Imposta il flag di caricamento su false dopo aver ottenuto i dati
     });
   }
-  
+
   Finestramodale() {
     this.lbl_header = "Inserisci un nuovo Libro";
-    this.visibleDialog = true; 
-    this.editMode = false; 
-    this.libroForm = {} as Libro; 
-    this.lblBtnSubmit = "Salva"; 
+    this.visibleDialog = true;
+    this.editMode = false;
+    this.libroForm = {} as Libro;
+    this.lblBtnSubmit = "Salva";
     this.nascondiTastoElimina = true;
   }
 
@@ -59,16 +63,15 @@ export class LibriComponent{
     this.visibleDialog = true;
     this.libroForm = libro;
     this.editMode = true;
-    this.lblBtnSubmit = "Aggiorna"; 
+    this.lblBtnSubmit = "Aggiorna";
     this.nascondiTastoElimina = false;
   }
 
   salvalibro(_id: string | undefined) {
     if (_id && this.editMode) {
-      let libro: Libro = { ...this.libroForm};
+      let libro: Libro = { ...this.libroForm };
       delete libro._id;
       this.libriService.put(_id, libro).subscribe((data: Libro) => {
-        this.updateLibroArray(data);
         this.visibleDialog = false;
       });
     } else {
@@ -89,7 +92,7 @@ export class LibriComponent{
           this.libri = this.libri.filter(
             (libro) => libro._id !== _id
           );
-          this.visibleDialog= false;
+          this.visibleDialog = false;
         },
         (error) => {
           console.error(
@@ -105,16 +108,6 @@ export class LibriComponent{
     this.visibleDialog = false;
   }
 
-   // Metodi di aggiornamento dell'array libri
-   private updateLibroArray(updatedLibro: Libro) {
-    this.libri = this.libri.map(libro => {
-      if (libro._id === updatedLibro._id) {
-        return updatedLibro;
-      }
-      return libro;
-    });
-  }
-
   private addLibroToArray(newLibro: Libro) {
     this.libri.push(newLibro);
   }
@@ -127,30 +120,3 @@ export class LibriComponent{
     });
   }
 }
-
-
-  // ngOnInit(): void {
-  //   this.libriService.get().subscribe((data) => {
-  //     this.libri = data;
-  //     this.loading = false;
-  //   });
-  // }
-
-
-// salvalibro(_id: string | undefined) {
-//   if (_id && this.editMode) {
-//     let libro: Libro = { ...this.libroInTheForm};
-//     delete libro._id
-//     this.libriService.put(_id, libro).subscribe((data: Libro) => {
-//       this.visibleDialog = false;
-//     });
-//   } else {
-//     this.libriService.post(this.libroInTheForm).subscribe(() => {
-//       this.visibleDialog = false;
-//     });
-//   }
-//   this.libriService.get().subscribe((data) => {
-//     this.libri = data;
-//     this.loading = false;
-//   });
-// }

@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Cliente } from 'src/app/shared/interfaces/cliente.model';
 import { ClientiService } from 'src/app/shared/service/clienti.service';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-clienti',
   templateUrl: './clienti.component.html',
   styleUrls: ['./clienti.component.css']
 })
 
-export class ClientiComponent implements OnInit{
+export class ClientiComponent implements OnInit {
 
   date: Date | undefined;
 
@@ -26,11 +26,21 @@ export class ClientiComponent implements OnInit{
   nascondiTastoElimina: boolean = false;
   message: string = "";
 
-  constructor(private clientiService: ClientiService) {
+  constructor(private clientiService: ClientiService,private router: Router ) {
   }
 
   ngOnInit(): void {
+    this.clientiService.get().subscribe((data) => {
+      this.clienti = data;
+      this.loading = false;
+    });
     this.loadClienti();
+  }
+
+  refresh(){
+  this.router.navigate([`/clienti`]).then(()=>{
+  console.log(`After navigation I am on:${this.router.url}`)
+  })
   }
 
   loadClienti() {
@@ -72,7 +82,6 @@ export class ClientiComponent implements OnInit{
       let cliente: Cliente = { ...this.clienteForm };
       delete cliente._id
       this.clientiService.put(_id, cliente).subscribe((data: Cliente) => {
-        this.updateClienteArray(data);
         this.visibleDialog = false;
       });
     } else {
@@ -109,16 +118,6 @@ export class ClientiComponent implements OnInit{
     this.visibleDialog = false;
   }
 
-  // Metodi di aggiornamento dell'array libri
-  private updateClienteArray(updatedCliente: Cliente) {
-    this.clienti = this.clienti.map(cliente => {
-      if (cliente._id === updatedCliente._id) {
-        return updatedCliente;
-      }
-      return cliente;
-    });
-  }
-
   private addClienteToArray(newCliente: Cliente) {
     this.clienti.push(newCliente);
   }
@@ -131,20 +130,3 @@ export class ClientiComponent implements OnInit{
     });
   }
 }
-
-// ngOnInit(): void {
-//   this.clientiService.get().subscribe((data) => {
-//     this.clienti = data;
-//     this.loading = false;
-//   });
-// }
-
-
-
-
-  // loadClienti() {
-  //   this.clientiService.get().subscribe((data) => {
-  //     this.clienti = data;
-  //     this.loading = false;
-  //   });
-  // }
