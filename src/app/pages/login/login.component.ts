@@ -14,7 +14,7 @@ export class LoginComponent {
 
   login() {
     // Verifica se le credenziali inserite sono corrette (per ora, accettiamo qualsiasi credenziale)
-    if (this.username && this.password) {
+    if (this.username === 'fedele' && this.password === '2002') {
       // Se le credenziali sono inserite, reindirizza l'utente alla home
       this.router.navigate(['/home']);
     } else {

@@ -11,6 +11,7 @@ import { ButtonModule } from "primeng/button";
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
