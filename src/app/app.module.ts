@@ -6,16 +6,17 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from "primeng/button";
+import { MenubarModule } from 'primeng/menubar';
+import {InputTextModule} from 'primeng/inputtext';
 
 // pagine
 import { AppComponent } from './app.component';
-import { LoginComponent } from './pages/login/login.component';
-
+import { MenubarComponent } from './pages/menubar/menubar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
+    MenubarComponent,
   ],
   imports: [
     BrowserModule,
@@ -24,10 +25,11 @@ import { LoginComponent } from './pages/login/login.component';
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    ButtonModule
+    ButtonModule,
+    MenubarModule,
+    InputTextModule,
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent],
-  providers: [],
 })
 export class AppModule { }

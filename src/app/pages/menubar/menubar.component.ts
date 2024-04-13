@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menubar',
@@ -7,6 +6,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./menubar.component.css']
 })
 export class MenubarComponent {
+
   items = [
     {
       label: 'Home',
@@ -20,16 +20,5 @@ export class MenubarComponent {
       label: 'Libri',
       routerLink: '/libri',
     },
-    {
-      label: 'Logout',
-      command: () => this.logout()
-    }
   ];
-
-  constructor(private router: Router) {}
-
-  logout() {
-    // Effettua il logout e reindirizza l'utente alla pagina di login
-    this.router.navigate(['/']);
-  }
 }

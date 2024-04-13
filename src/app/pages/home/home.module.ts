@@ -5,7 +5,7 @@ import { ChartModule } from 'primeng/chart';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';  
 import { TableModule } from 'primeng/table';
-import { MyMenuBarModule } from "../menubar/menubar.module";  
+
 const routes: Routes = [
   {
     path: "",
@@ -23,7 +23,6 @@ const routes: Routes = [
         CardModule,
         ButtonModule,
         TableModule,
-        MyMenuBarModule
     ]
 })
 export class HomeModule {}

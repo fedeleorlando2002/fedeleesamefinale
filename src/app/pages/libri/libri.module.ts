@@ -12,7 +12,6 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { InputTextModule } from "primeng/inputtext";
 import { InputTextareaModule } from "primeng/inputtextarea";
 import { InputNumberModule } from "primeng/inputnumber";
-import { MyMenuBarModule } from "../menubar/menubar.module";
 
 
 const routes: Routes = [
@@ -38,8 +37,7 @@ const routes: Routes = [
         ReactiveFormsModule,
         InputTextModule,
         InputNumberModule,
-        InputTextareaModule,
-        MyMenuBarModule
+        InputTextareaModule, 
     ]
 })
 export class LibriModule {}
