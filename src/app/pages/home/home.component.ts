@@ -76,10 +76,10 @@ export class HomeComponent implements OnInit {
 
   getLibriCount() {
     this.libriService.get().subscribe((libri) => {
-      this.numberOfLibri = libri.length; // Ottieni la lunghezza dell'array dei pacchetti
+      this.numberOfLibri = libri.reduce((total, libro) => total + libro.pezzi, 0);
     });
   }
-
+  
   getClientiCount() {
     this.clientiService.get().subscribe((clienti) => {
       this.numberOfClienti = clienti.length;

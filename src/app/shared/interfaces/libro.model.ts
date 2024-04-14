@@ -4,4 +4,5 @@ export interface Libro {
   autore: string;
   prezzo: number;
   categoria: string;
+  pezzi: number;
 }

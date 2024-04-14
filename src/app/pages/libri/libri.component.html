@@ -1,4 +1,3 @@
-
 <div class="card">
   <p-table
     [value]="libri"
@@ -61,6 +60,9 @@
         <th class="table-col" pSortableColumn="categoria">
           CATEGORIA <p-sortIcon field="categoria"></p-sortIcon>
         </th>
+        <th class="table-col" pSortableColumn="pezzi">
+          PEZZI <p-sortIcon field="pezzi"></p-sortIcon>
+        </th>
         <th class="table-col">AZIONI</th>
       </tr>
     </ng-template>
@@ -70,6 +72,7 @@
         <td class="table-col">{{ libro.autore }}</td>
         <td class="table-col">{{ libro.prezzo | currency : "EUR" }}</td>
         <td class="table-col">{{ libro.categoria }}</td>
+        <td class="table-col">{{ libro.pezzi }}</td>
         <td class="table-col transp-bord">
           <div class="container">
             <p-button
@@ -214,6 +217,37 @@
               severity="error"
               text="La categoria è obbligatoria"
               [@errorState]="categoria?.errors?.['required'] ? 'visible' : 'hidden'"
+            ></p-message>
+          </div>
+        </div>
+      </div>
+
+      <div class="formgrid grid">
+        <div class="field col">
+          <label htmlFor="pezzi">PEZZI</label>
+          <p-inputNumber
+            [min]="0"
+            [showButtons]="true"
+            id="pezzi"
+            [(ngModel)]="libroForm.pezzi"
+            #pezzi="ngModel"
+            name="pezzi"
+            [showButtons]="true"
+            inputId="minmax-buttons"
+            autofocus
+            [ngClass]="{
+              'ng-invalid ng-dirty':
+                (pezzi.dirty || pezzi.touched) && pezzi.errors
+            }"
+          />
+          <div
+            *ngIf="(pezzi.dirty || pezzi.touched) && pezzi.errors"
+            class="alert alert-danger"
+          >
+            <p-message
+              severity="error"
+              text="I pezzi è obbligatoria"
+              [@errorState]="pezzi?.errors?.['required'] ? 'visible' : 'hidden'"
             ></p-message>
           </div>
         </div>
