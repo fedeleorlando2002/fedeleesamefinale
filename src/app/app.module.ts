@@ -11,7 +11,7 @@ import {InputTextModule} from 'primeng/inputtext';
 
 // pagine
 import { AppComponent } from './app.component';
-import { MenubarComponent } from './pages/menubar/menubar.component';
+import { MenubarComponent } from './shared/menubar/menubar.component';
 
 @NgModule({
   declarations: [
