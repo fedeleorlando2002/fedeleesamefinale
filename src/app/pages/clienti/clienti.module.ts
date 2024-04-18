@@ -11,7 +11,6 @@ import { InputTextModule } from "primeng/inputtext";
 import { InputTextareaModule } from "primeng/inputtextarea";
 import { InputNumberModule } from "primeng/inputnumber";
 import { CommonModule } from '@angular/common';
-// import { MyMenuBarModule } from "../menubar/menubar.module";
 
 const routes: Routes = [
   {
@@ -37,7 +36,6 @@ const routes: Routes = [
         InputTextModule,
         InputNumberModule,
         InputTextareaModule,
-        // MyMenuBarModule
     ]
 })
 export class ClientiModule {}
