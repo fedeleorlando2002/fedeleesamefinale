@@ -13,7 +13,6 @@ import { InputTextModule } from "primeng/inputtext";
 import { InputTextareaModule } from "primeng/inputtextarea";
 import { InputNumberModule } from "primeng/inputnumber";
 
-
 const routes: Routes = [
   {
     path: "",
