@@ -254,8 +254,24 @@
       </div>
 
       <br />
+      <div *ngIf="!editMode">
+        <button
+          pButton
+          type="submit"
+          [label]="lblBtnSubmit"
+          (click)="salvalibro(libroForm._id)"
+          class="p-button-success mb-3 mr-3 button-size"
+        ></button>
+        <button
+          pButton
+          type="button"
+          label="Annulla"
+          (click)="annulla()"
+          class="p-button-secondary mb-3 button-size"
+        ></button>
+      </div>
 
-      <div class="flex-parent jc-center">
+      <div *ngIf="editMode">
         <button
           pButton
           type="submit"

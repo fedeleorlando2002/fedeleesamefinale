@@ -251,11 +251,29 @@
         </div>
       </div>
       <br />
-      <div class="flex-parent jc-center">
+      
+      <div *ngIf="!editMode">
         <button
           pButton
           type="submit"
           [label]="lblBtnSubmit"
+          (click)="salvacliente(clienteForm._id)"
+          class="p-button-success mb-3 mr-3 button-size"
+        ></button>
+        <button
+          pButton
+          type="button"
+          label="Annulla"
+          (click)="annulla()"
+          class="p-button-secondary mb-3 button-size"
+        ></button>
+      </div>
+      <!-- Mostra i pulsanti Modifica, Elimina e Annulla solo quando si sta modificando un cliente esistente -->
+      <div *ngIf="editMode">
+        <button
+          pButton
+          type="submit"
+          label="Modifica"
           (click)="salvacliente(clienteForm._id)"
           class="p-button-success mb-3 mr-3 button-size"
         ></button>
@@ -274,9 +292,6 @@
           (click)="annulla()"
           class="p-button-secondary mb-3 button-size"
         ></button>
-        <div *ngIf="errorOccurred" [ngClass]="errorOccurred ? 'ng-errors' : ''">
-          {{ message }}
-        </div>
       </div>
     </form>
   </ng-template>
