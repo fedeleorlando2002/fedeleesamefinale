@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Cliente } from 'src/app/shared/interfaces/cliente.model';
+import { Libro } from 'src/app/shared/interfaces/libro.model';
 import { ClientiService } from 'src/app/shared/service/clienti.service';
 import { LibriService } from 'src/app/shared/service/libri.service';
 
@@ -19,6 +20,7 @@ export class HomeComponent implements OnInit {
   // card
   numberOfClienti: number = 0;
   numberOfLibri: number = 0;
+  libroConPezziMax: Libro | null = null;
 
   // grafico
   data: any;
@@ -72,6 +74,7 @@ export class HomeComponent implements OnInit {
 
     this.getLibriCount();
     this.getClientiCount();
+    this.getLibroConPezziMax();
   }
 
   getLibriCount() {
@@ -83,6 +86,13 @@ export class HomeComponent implements OnInit {
   getClientiCount() {
     this.clientiService.get().subscribe((clienti) => {
       this.numberOfClienti = clienti.length;
+    });
+  }
+
+  getLibroConPezziMax() {
+    this.libriService.get().subscribe((libri: Libro[]) => {
+      // Trova il libro con più pezzi
+      this.libroConPezziMax = libri.reduce((maxLibro: Libro | null, libro: Libro) => maxLibro && maxLibro.pezzi > libro.pezzi ? maxLibro : libro, null);
     });
   }
 }
