@@ -37,12 +37,6 @@ export class ClientiComponent implements OnInit {
     this.loadClienti();
   }
 
-  refresh(){
-  this.router.navigate([`/clienti`]).then(()=>{
-  console.log(`After navigation I am on:${this.router.url}`)
-  })
-  }
-
   loadClienti() {
     this.loading = true; // Imposta il flag di caricamento su true prima di effettuare la chiamata API
     this.clientiService.get().subscribe((data) => {
