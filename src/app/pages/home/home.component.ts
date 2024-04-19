@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
   // card
   numberOfClienti: number = 0;
   numberOfLibri: number = 0;
-  libroConPezziMax: Libro | null = null;
+  valoreMagazzino: number = 0;
 
   // grafico
   data: any;
@@ -74,7 +74,26 @@ export class HomeComponent implements OnInit {
 
     this.getLibriCount();
     this.getClientiCount();
-    this.getLibroConPezziMax();
+    this.getValoreMagazzino();
+  }
+
+  getValoreMagazzino() {
+    this.libriService.get().subscribe((libri) => {
+      this.valoreMagazzino = this.calcolaValoreMagazzino(libri);
+    });
+  }
+
+  calcolaValoreMagazzino(libri: Libro[]): number {
+    let valoreTotale = 0;
+
+    // Itera attraverso ogni libro
+    for (const libro of libri) {
+      // Calcola il valore del singolo libro moltiplicando il prezzo per il numero di pezzi
+      const valoreLibro = libro.prezzo * libro.pezzi;
+      // Aggiungi il valore del libro al valore totale del magazzino
+      valoreTotale += valoreLibro;
+    }
+    return valoreTotale;
   }
 
   getLibriCount() {
@@ -82,17 +101,10 @@ export class HomeComponent implements OnInit {
       this.numberOfLibri = libri.reduce((total, libro) => total + libro.pezzi, 0);
     });
   }
-  
+
   getClientiCount() {
     this.clientiService.get().subscribe((clienti) => {
       this.numberOfClienti = clienti.length;
-    });
-  }
-
-  getLibroConPezziMax() {
-    this.libriService.get().subscribe((libri: Libro[]) => {
-      // Trova il libro con più pezzi
-      this.libroConPezziMax = libri.reduce((maxLibro: Libro | null, libro: Libro) => maxLibro && maxLibro.pezzi > libro.pezzi ? maxLibro : libro, null);
     });
   }
 }
