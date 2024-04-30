@@ -67,6 +67,7 @@
           TELEFONO
           <p-sortIcon field="telefono"></p-sortIcon>
         </th>
+        <th class="table-col">STATO</th>
         <th class="table-col">AZIONI</th>
       </tr>
     </ng-template>
@@ -77,6 +78,7 @@
         <td class="table-col">{{ cliente.eta | date : "dd/MM/yyyy" }}</td>
         <td class="table-col">{{ cliente.email }}</td>
         <td class="table-col">{{ cliente.telefono }}</td>
+        <td class="table-col" [style.color]="getColoreStato(cliente.stato)">{{ convertiStato(cliente.stato) }}</td>
         <td class="table-col transp-bord">
           <div class="container">
             <p-button
@@ -130,7 +132,7 @@
           >
             <p-message
               severity="error"
-              text="L'ID del pacchetto è obbligatorio"
+              text="il nome è obbligatorio"
               [@errorState]="nome?.errors?.['required'] ? 'visible' : 'hidden'"
             ></p-message>
           </div>
@@ -249,9 +251,21 @@
             ></p-message>
           </div>
         </div>
+
+        <div class="field col">
+          <label htmlFor="stato">STATO</label>
+          <p-dropdown
+            [options]="stati"
+            [(ngModel)]="statoSelezionato"
+            id="stato"
+            name="stato"
+            #stato="ngModel"
+          >
+          </p-dropdown>
+        </div>
       </div>
       <br />
-      
+
       <div *ngIf="!editMode">
         <button
           pButton

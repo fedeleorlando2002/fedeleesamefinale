@@ -5,4 +5,5 @@ export interface Cliente{
     email : string;
     eta: string;
     telefono: string;
+    stato: number;
   }

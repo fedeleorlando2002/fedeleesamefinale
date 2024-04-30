@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Cliente } from 'src/app/shared/interfaces/cliente.model';
 import { ClientiService } from 'src/app/shared/service/clienti.service';
 import { Router } from '@angular/router';
+import { StaticStatoRichiesta, StatoRichiesta } from 'src/app/shared/interfaces/stato.model';
+
 @Component({
   selector: 'app-clienti',
   templateUrl: './clienti.component.html',
@@ -9,7 +11,9 @@ import { Router } from '@angular/router';
 })
 
 export class ClientiComponent implements OnInit {
-
+  stati!: StatoRichiesta[] | undefined;
+  statoSelezionato!: StatoRichiesta | undefined;
+  
   date: Date | undefined;
 
   search: any = ''; // Inizializza la ricerca
@@ -29,7 +33,8 @@ export class ClientiComponent implements OnInit {
   constructor(private clientiService: ClientiService,private router: Router ) {
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.stati = StaticStatoRichiesta;
     this.clientiService.get().subscribe((data) => {
       this.clienti = data;
       this.loading = false;
@@ -52,13 +57,27 @@ export class ClientiComponent implements OnInit {
     });
   }
 
+  getColoreStato(numeroStato: number): string {
+    const statoCorrispondente = this.stati!.find(
+      (stato) => stato.stato === numeroStato
+    );
+    return statoCorrispondente ? statoCorrispondente.colore : "";
+  }
+  
+  convertiStato(numeroStato: number): string {
+    const statoCorrispondente = this.stati!.find(
+      (stato) => stato.stato === numeroStato
+    );
+    return statoCorrispondente ? statoCorrispondente.label : "Stato non valido";
+  }
+
   Finestramodale() {
     this.lbl_header = "Inserisci un nuovo Cliente";
     this.visibleDialog = true; //questo serve per aprire il p-dialog
     this.editMode = false; //questo serve per capire se si sta modificando un cliente o se si sta inserendo un nuovo cliente
     this.clienteForm = {} as Cliente; //questo serve per inizializzare il nuovo cliente
+    this.statoSelezionato = undefined; // reimposta lo stato selezionato a undefined
     this.lblBtnSubmit = "Salva"; //questo serve per cambiare il testo del bottone
-    this.nascondiTastoElimina = true;
   }
 
   PrepareFinestraModale(cliente: Cliente) {
@@ -68,18 +87,33 @@ export class ClientiComponent implements OnInit {
     this.editMode = true;
     this.lblBtnSubmit = "Aggiorna"; //questo serve per cambiare il testo del bottone
     this.nascondiTastoElimina = false;
+    this.statoSelezionato = this.stati!.find(
+      (stato) => stato.stato === this.clienteForm.stato
+    )!;
   }
 
 
   salvacliente(_id: string | undefined) {
     if (_id && this.editMode) {
-      let cliente: Cliente = { ...this.clienteForm };
+      let cliente: Cliente = { ...this.clienteForm, stato: this.statoSelezionato!.stato, };
       delete cliente._id
       this.clientiService.put(_id, cliente).subscribe((data: Cliente) => {
+        console.log(cliente);
         this.visibleDialog = false;
+        this.loadClienti(); 
       });
-    } else {
-      this.clientiService.post(this.clienteForm).subscribe((data: Cliente) => {
+     } 
+    //  else {
+    //   this.clientiService.post(this.clienteForm).subscribe((data: Cliente) => {
+    //     console.log(data); // Console log della risposta dopo l'inserimento del cliente
+    //     this.addClienteToArray(data);
+    //     this.visibleDialog = false;
+    //   });
+    // }
+    else {
+      let nuovoCliente: Cliente = { ...this.clienteForm, stato: this.statoSelezionato?.stato ?? 0 };
+      this.clientiService.post(nuovoCliente).subscribe((data: Cliente) => {
+        console.log(data);
         this.addClienteToArray(data);
         this.visibleDialog = false;
       });

@@ -11,6 +11,7 @@ import { InputTextModule } from "primeng/inputtext";
 import { InputTextareaModule } from "primeng/inputtextarea";
 import { InputNumberModule } from "primeng/inputnumber";
 import { CommonModule } from '@angular/common';
+import { DropdownModule } from 'primeng/dropdown';
 
 const routes: Routes = [
   {
@@ -36,6 +37,7 @@ const routes: Routes = [
         InputTextModule,
         InputNumberModule,
         InputTextareaModule,
+        DropdownModule,
     ]
 })
 export class ClientiModule {}
