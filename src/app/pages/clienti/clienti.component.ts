@@ -101,20 +101,12 @@ export class ClientiComponent implements OnInit {
         this.visibleDialog = false;
         this.loadClienti(); 
       });
-     } 
-    //  else {
-    //   this.clientiService.post(this.clienteForm).subscribe((data: Cliente) => {
-    //     console.log(data); // Console log della risposta dopo l'inserimento del cliente
-    //     this.addClienteToArray(data);
-    //     this.visibleDialog = false;
-    //   });
-    // }
-    else {
+     } else {
       let nuovoCliente: Cliente = { ...this.clienteForm, stato: this.statoSelezionato?.stato ?? 0 };
       this.clientiService.post(nuovoCliente).subscribe((data: Cliente) => {
         console.log(data);
-        this.addClienteToArray(data);
         this.visibleDialog = false;
+        this.loadClienti(); 
       });
     }
   }
@@ -145,10 +137,6 @@ export class ClientiComponent implements OnInit {
     this.visibleDialog = false;
   }
 
-  private addClienteToArray(newCliente: Cliente) {
-    this.clienti.push(newCliente);
-  }
-
   annulla() {
     this.visibleDialog = false;
     this.clientiService.get().subscribe((data) => {
@@ -157,3 +145,13 @@ export class ClientiComponent implements OnInit {
     });
   }
 }
+
+
+
+   //  else {
+    //   this.clientiService.post(this.clienteForm).subscribe((data: Cliente) => {
+    //     console.log(data); // Console log della risposta dopo l'inserimento del cliente
+    //     this.addClienteToArray(data);
+    //     this.visibleDialog = false;
+    //   });
+    // }
