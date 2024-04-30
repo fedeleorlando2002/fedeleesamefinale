@@ -92,7 +92,6 @@ export class ClientiComponent implements OnInit {
     )!;
   }
 
-
   salvacliente(_id: string | undefined) {
     if (_id && this.editMode) {
       let cliente: Cliente = { ...this.clienteForm, stato: this.statoSelezionato!.stato, };
