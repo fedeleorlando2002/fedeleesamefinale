@@ -4,6 +4,7 @@ export interface StatoRichiesta {
     colore: string;
   }
   
+  
   export const StaticStatoRichiesta: StatoRichiesta[] = [
     { stato: 0, label: "meno 10 libri", colore: "red" },
     { stato: 1, label: "più 10 libri", colore: "green" },
