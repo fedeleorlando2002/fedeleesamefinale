@@ -5,8 +5,8 @@ export interface StatoRichiesta {
   }
   
   export const StaticStatoRichiesta: StatoRichiesta[] = [
-    { stato: 0, label: "meno 10 libri", colore: "red" },
-    { stato: 1, label: "più 10 libri", colore: "green" },
-    { stato: 2, label: "più 20 libri", colore: "blue" },
+    { stato: 0, label: "libri acquistati meno di 10", colore: "red" },
+    { stato: 1, label: "libri acquistati più di 10", colore: "green" },
+    { stato: 2, label: "libri acquistati più di 20", colore: "blue" },
   ];
   
