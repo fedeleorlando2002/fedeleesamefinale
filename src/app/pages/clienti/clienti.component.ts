@@ -93,24 +93,47 @@ export class ClientiComponent implements OnInit {
   }
 
   salvacliente(_id: string | undefined) {
-    if (_id && this.editMode) {
-      let cliente: Cliente = { ...this.clienteForm, stato: this.statoSelezionato!.stato, };
-      delete cliente._id
-      this.clientiService.put(_id, cliente).subscribe((data: Cliente) => {
-        console.log(cliente);
-        this.visibleDialog = false;
-        this.loadClienti(); 
-      });
-     } else {
-      let nuovoCliente: Cliente = { ...this.clienteForm, stato: this.statoSelezionato?.stato ?? 0 };
-      this.clientiService.post(nuovoCliente).subscribe((data: Cliente) => {
-        console.log(data);
-        this.visibleDialog = false;
-        this.loadClienti(); 
-      });
+    let confermaMessaggio: string;
+    if (_id && this.editMode) { 
+      confermaMessaggio = "Sei sicuro di voler aggiornare questo cliente?";
+    } else {
+      confermaMessaggio = "Sei sicuro di voler salvare questo nuovo cliente?";
+    }
+  
+    if (confirm(confermaMessaggio)) {
+      if (_id && this.editMode) { 
+        let cliente: Cliente = { ...this.clienteForm, stato: this.statoSelezionato!.stato, };
+        delete cliente._id
+        this.clientiService.put(_id, cliente).subscribe(
+          (data: Cliente) => {
+            this.visibleDialog = false;
+            this.loadClienti();
+            console.log("Cliente aggiornato con successo.");
+          },
+          (error) => {
+            console.error("Errore durante l'aggiornamento del cliente", error);
+            this.errorOccurred = true;
+            this.message = "Si è verificato un errore durante l'aggiornamento del cliente.";
+          }
+        );
+      } else {
+        let nuovoCliente: Cliente = { ...this.clienteForm, stato: this.statoSelezionato?.stato ?? 0 };
+        this.clientiService.post(nuovoCliente).subscribe(
+          (data: Cliente) => {
+            this.visibleDialog = false;
+            this.loadClienti();
+            console.log("Cliente salvato con successo.");
+          },
+          (error) => {
+            console.error("Errore durante il salvataggio del nuovo cliente", error);
+            this.errorOccurred = true;
+            this.message = "Si è verificato un errore durante il salvataggio del nuovo cliente.";
+          }
+        );
+      }
     }
   }
-
+  
   eliminacliente(_id: string | undefined) {
     if (!_id) {
       _id = "";
@@ -146,12 +169,21 @@ export class ClientiComponent implements OnInit {
   }
 }
 
-
-
-   //  else {
-    //   this.clientiService.post(this.clienteForm).subscribe((data: Cliente) => {
-    //     console.log(data); // Console log della risposta dopo l'inserimento del cliente
-    //     this.addClienteToArray(data);
-    //     this.visibleDialog = false;
-    //   });
-    // }
+  // salvacliente(_id: string | undefined) {
+  //   if (_id && this.editMode) {
+  //     let cliente: Cliente = { ...this.clienteForm, stato: this.statoSelezionato!.stato, };
+  //     delete cliente._id
+  //     this.clientiService.put(_id, cliente).subscribe((data: Cliente) => {
+  //       console.log(cliente);
+  //       this.visibleDialog = false;
+  //       this.loadClienti(); 
+  //     });
+  //    } else {
+  //     let nuovoCliente: Cliente = { ...this.clienteForm, stato: this.statoSelezionato?.stato ?? 0 };
+  //     this.clientiService.post(nuovoCliente).subscribe((data: Cliente) => {
+  //       console.log(data);
+  //       this.visibleDialog = false;
+  //       this.loadClienti(); 
+  //     });
+  //   }
+  // }
