@@ -68,17 +68,40 @@ export class LibriComponent {
   }
 
   salvalibro(_id: string | undefined) {
+    let confermaMessaggio: string;
     if (_id && this.editMode) {
-      let libro: Libro = { ...this.libroForm };
-      delete libro._id;
-      this.libriService.put(_id, libro).subscribe((data: Libro) => {
-        this.visibleDialog = false;
-      });
+      confermaMessaggio = "Sei sicuro di voler aggiornare questo libro?";
     } else {
-      this.libriService.post(this.libroForm).subscribe((data: Libro) => {
-        this.addLibroToArray(data);
-        this.visibleDialog = false;
-      });
+      confermaMessaggio = "Sei sicuro di voler salvare questo nuovo libro?";
+    }
+
+    if (confirm(confermaMessaggio)) {
+      if (_id && this.editMode) {
+        let libro: Libro = { ...this.libroForm };
+        delete libro._id;
+        this.libriService.put(_id, libro).subscribe((data: Libro) => {
+          this.visibleDialog = false;
+          console.log("Libro aggiornato con successo.");
+        },
+          (error) => {
+            console.error("Errore durante l'aggiornamento del libro", error);
+            this.errorOccurred = true;
+            this.message = "Si è verificato un errore durante l'aggiornamento del libro.";
+          }
+        );
+      } else {
+        this.libriService.post(this.libroForm).subscribe((data: Libro) => {
+          this.visibleDialog = false;
+          this.loadLibri();
+          console.log("Libro salvato con successo.");
+        },
+          (error) => {
+            console.error("Errore durante il salvataggio del nuovo libro", error);
+            this.errorOccurred = true;
+            this.message = "Si è verificato un errore durante il salvataggio del nuovo libro.";
+          }
+        );
+      }
     }
   }
 
@@ -106,10 +129,6 @@ export class LibriComponent {
       );
     }
     this.visibleDialog = false;
-  }
-
-  private addLibroToArray(newLibro: Libro) {
-    this.libri.push(newLibro);
   }
 
   annulla() {
